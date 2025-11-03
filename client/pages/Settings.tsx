@@ -538,7 +538,7 @@ export default function Settings() {
                               year: "numeric",
                               month: "long",
                               day: "numeric",
-                            }
+                            },
                           )}
                         </div>
                       </div>
