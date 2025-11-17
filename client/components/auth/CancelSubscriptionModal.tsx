@@ -78,7 +78,7 @@ export default function CancelSubscriptionModal({
   if (showSuccess) {
     return (
       <Dialog open={open} onOpenChange={handleClose}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="w-full sm:w-1/2 max-w-xl">
           <div className="flex flex-col items-center justify-center py-8 space-y-6">
             {/* Success Icon */}
             <div className="relative">
