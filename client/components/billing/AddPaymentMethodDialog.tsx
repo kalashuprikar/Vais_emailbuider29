@@ -192,7 +192,12 @@ export function AddPaymentMethodDialog({
   };
 
   const handleAddCard = async () => {
-    const validationErrors = validateCardForm(formData);
+    let validationErrors = validateCardForm(formData);
+
+    if (isEditMode) {
+      validationErrors = validationErrors.filter((e) => e.field !== "cardNumber" && e.field !== "cvc");
+    }
+
     setErrors(validationErrors);
 
     if (validationErrors.length > 0) return;
