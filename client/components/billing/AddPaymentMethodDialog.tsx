@@ -578,25 +578,26 @@ export function AddPaymentMethodDialog({
           )}
 
           {paymentType === "paypal" && (
-            <div className="space-y-5 animate-in fade-in slide-in-from-top-2 duration-300">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-blue-600 rounded-lg">
-                    <Zap className="w-5 h-5 text-white" />
+            <div className="space-y-6 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="bg-gradient-to-br from-blue-50 via-blue-100 to-blue-50 rounded-2xl p-6 border-2 border-blue-200 shadow-lg">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-lg flex-shrink-0">
+                    <Zap className="w-6 h-6 text-white" />
                   </div>
-                  <div>
-                    <p className="font-semibold text-gray-900">
-                      Secure & Fast
+                  <div className="flex-1">
+                    <p className="font-bold text-gray-900 text-lg">
+                      Secure & Fast Payment
                     </p>
-                    <p className="text-sm text-gray-600">
-                      PayPal handles your payment securely
+                    <p className="text-sm text-gray-700 mt-1">
+                      PayPal securely handles your payment without sharing card details
                     </p>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                <label className="block text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                  <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">1</span>
                   PayPal Email Address
                 </label>
                 <Input
@@ -606,15 +607,15 @@ export function AddPaymentMethodDialog({
                   onChange={(e) =>
                     setFormData({ ...formData, paypalEmail: e.target.value })
                   }
-                  className={`h-11 text-base transition-all ${
+                  className={`h-12 text-base transition-all border-2 focus:ring-2 focus:ring-blue-400 focus:ring-opacity-30 ${
                     getErrorMessage("paypalEmail")
                       ? "border-red-500 focus:border-red-500"
-                      : ""
+                      : "border-gray-200 focus:border-blue-500"
                   }`}
                 />
                 {getErrorMessage("paypalEmail") && (
-                  <div className="flex items-center gap-2 mt-1 text-sm text-red-600">
-                    <AlertCircle className="w-4 h-4" />
+                  <div className="flex items-center gap-2 mt-2 text-sm text-red-600 animate-in fade-in">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     <span>{getErrorMessage("paypalEmail")}</span>
                   </div>
                 )}
