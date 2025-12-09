@@ -21,20 +21,19 @@ export default function Maintenance() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-valasys-gray-900 via-valasys-gray-800 to-valasys-blue/20 overflow-hidden flex items-center justify-center relative">
+    <div className="min-h-screen w-full bg-[radial-gradient(ellipse_at_top_left,rgba(255,106,0,0.15),transparent_50%),radial-gradient(ellipse_at_bottom_right,rgba(26,115,232,0.12),transparent_50%),radial-gradient(ellipse_at_top_right,rgba(0,196,140,0.12),transparent_40%)] overflow-hidden flex items-center justify-center relative bg-white">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Floating shapes */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-valasys-orange/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-valasys-blue/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-valasys-green/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-valasys-orange/25 blur-3xl"></div>
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-valasys-blue/25 blur-3xl"></div>
 
-        {/* Grid pattern */}
+        {/* Subtle grid pattern */}
         <div
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0 opacity-3"
           style={{
             backgroundImage:
-              "linear-gradient(0deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255,255,255,.05) 25%, rgba(255,255,255,.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.05) 75%, rgba(255,255,255,.05) 76%, transparent 77%, transparent)",
+              "linear-gradient(0deg, transparent 24%, rgba(255,106,0,.03) 25%, rgba(255,106,0,.03) 26%, transparent 27%, transparent 74%, rgba(255,106,0,.03) 75%, rgba(255,106,0,.03) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255,106,0,.03) 25%, rgba(255,106,0,.03) 26%, transparent 27%, transparent 74%, rgba(255,106,0,.03) 75%, rgba(255,106,0,.03) 76%, transparent 77%, transparent)",
             backgroundSize: "50px 50px",
           }}
         ></div>
