@@ -10,6 +10,19 @@ interface VAISFeedbackModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
+const ratingColors = [
+  { num: 1, color: "#d32f2f", label: "Very unsatisfied" },
+  { num: 2, color: "#e64a19" },
+  { num: 3, color: "#f57c00" },
+  { num: 4, color: "#fb8c00" },
+  { num: 5, color: "#fbc02d" },
+  { num: 6, color: "#9ccc65" },
+  { num: 7, color: "#7cb342" },
+  { num: 8, color: "#689f38" },
+  { num: 9, color: "#26a69a" },
+  { num: 10, color: "#00bcd4", label: "Totally satisfied" },
+];
+
 export function VAISFeedbackModal({
   open,
   onOpenChange,
