@@ -210,10 +210,7 @@ export const BlocksPanel: React.FC<BlocksPanelProps> = ({ onAddBlock }) => {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent
-          value="blocks"
-          className="flex flex-col m-0"
-        >
+        <TabsContent value="blocks" className="flex flex-col m-0">
           <div className="p-4 border-b border-gray-200 sticky top-0 bg-white z-10">
             <Input
               placeholder="Search blocks..."
@@ -232,10 +229,7 @@ export const BlocksPanel: React.FC<BlocksPanelProps> = ({ onAddBlock }) => {
           </div>
         </TabsContent>
 
-        <TabsContent
-          value="sections"
-          className="flex flex-col m-0 p-4"
-        >
+        <TabsContent value="sections" className="flex flex-col m-0 p-4">
           <div className="flex items-center justify-center py-8">
             <div className="space-y-3 text-center">
               <div className="p-4 rounded-lg border border-dashed border-gray-300">
@@ -247,16 +241,13 @@ export const BlocksPanel: React.FC<BlocksPanelProps> = ({ onAddBlock }) => {
           </div>
         </TabsContent>
 
-        <TabsContent
-          value="saved"
-          className="flex flex-col m-0 p-4"
-        >
+        <TabsContent value="saved" className="flex flex-col m-0 p-4">
           <div className="flex items-center justify-center py-8">
             <div className="space-y-3 text-center">
               <div className="p-4 rounded-lg border border-dashed border-gray-300">
                 <p className="text-sm text-gray-500">
-                  No saved blocks yet. Save your favorite blocks to access
-                  them quickly.
+                  No saved blocks yet. Save your favorite blocks to access them
+                  quickly.
                 </p>
               </div>
             </div>

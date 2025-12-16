@@ -51,7 +51,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               <h4 className="text-xs font-bold text-gray-900 mb-3">Layout</h4>
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="titleWidth" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="titleWidth"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Width
                   </Label>
                   <div className="flex gap-2">
@@ -94,7 +97,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   </Label>
                   <div className="flex gap-2">
                     <Button
-                      variant={block.alignment === "left" ? "default" : "outline"}
+                      variant={
+                        block.alignment === "left" ? "default" : "outline"
+                      }
                       size="sm"
                       className="flex-1"
                       onClick={() =>
@@ -104,7 +109,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                       ⬅
                     </Button>
                     <Button
-                      variant={block.alignment === "center" ? "default" : "outline"}
+                      variant={
+                        block.alignment === "center" ? "default" : "outline"
+                      }
                       size="sm"
                       className="flex-1"
                       onClick={() =>
@@ -114,7 +121,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                       ⬇
                     </Button>
                     <Button
-                      variant={block.alignment === "right" ? "default" : "outline"}
+                      variant={
+                        block.alignment === "right" ? "default" : "outline"
+                      }
                       size="sm"
                       className="flex-1"
                       onClick={() =>
@@ -132,7 +141,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               <h4 className="text-xs font-bold text-gray-900 mb-3">Spacing</h4>
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="titlePadding" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="titlePadding"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Padding
                   </Label>
                   <div className="flex gap-2">
@@ -154,7 +166,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                 </div>
 
                 <div>
-                  <Label htmlFor="titleMargin" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="titleMargin"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Margin
                   </Label>
                   <div className="flex gap-2">
@@ -178,7 +193,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-gray-900 mb-3">Background</h4>
+              <h4 className="text-xs font-bold text-gray-900 mb-3">
+                Background
+              </h4>
               <div className="space-y-3">
                 <div>
                   <Label
@@ -192,7 +209,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     type="color"
                     value={block.backgroundColor}
                     onChange={(e) =>
-                      onBlockUpdate({ ...block, backgroundColor: e.target.value })
+                      onBlockUpdate({
+                        ...block,
+                        backgroundColor: e.target.value,
+                      })
                     }
                   />
                 </div>
@@ -200,10 +220,15 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-gray-900 mb-3">Rounded corners</h4>
+              <h4 className="text-xs font-bold text-gray-900 mb-3">
+                Rounded corners
+              </h4>
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="titleRadius" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="titleRadius"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Radius
                   </Label>
                   <div className="flex gap-2">
@@ -230,7 +255,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               <h4 className="text-xs font-bold text-gray-900 mb-3">Borders</h4>
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="titleBorderWidth" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="titleBorderWidth"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Size
                   </Label>
                   <div className="flex gap-2">
@@ -271,7 +299,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-gray-900 mb-3">Typography</h4>
+              <h4 className="text-xs font-bold text-gray-900 mb-3">
+                Typography
+              </h4>
               <div className="space-y-3">
                 <div>
                   <Label
@@ -339,21 +369,26 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-gray-900 mb-3">Content visibility</h4>
-              <p className="text-xs text-gray-500 mb-3">Display content based on the type of device or other specific conditions</p>
+              <h4 className="text-xs font-bold text-gray-900 mb-3">
+                Content visibility
+              </h4>
+              <p className="text-xs text-gray-500 mb-3">
+                Display content based on the type of device or other specific
+                conditions
+              </p>
               <div className="flex gap-2 flex-wrap">
                 <Button
                   variant={block.visibility === "all" ? "default" : "outline"}
                   size="sm"
-                  onClick={() =>
-                    onBlockUpdate({ ...block, visibility: "all" })
-                  }
+                  onClick={() => onBlockUpdate({ ...block, visibility: "all" })}
                   className="text-xs"
                 >
                   All devices
                 </Button>
                 <Button
-                  variant={block.visibility === "desktop" ? "default" : "outline"}
+                  variant={
+                    block.visibility === "desktop" ? "default" : "outline"
+                  }
                   size="sm"
                   onClick={() =>
                     onBlockUpdate({ ...block, visibility: "desktop" })
@@ -363,7 +398,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   Only on desktop
                 </Button>
                 <Button
-                  variant={block.visibility === "mobile" ? "default" : "outline"}
+                  variant={
+                    block.visibility === "mobile" ? "default" : "outline"
+                  }
                   size="sm"
                   onClick={() =>
                     onBlockUpdate({ ...block, visibility: "mobile" })
@@ -401,7 +438,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               <h4 className="text-xs font-bold text-gray-900 mb-3">Layout</h4>
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="textWidth" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="textWidth"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Width
                   </Label>
                   <div className="flex gap-2">
@@ -444,7 +484,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   </Label>
                   <div className="flex gap-2">
                     <Button
-                      variant={block.alignment === "left" ? "default" : "outline"}
+                      variant={
+                        block.alignment === "left" ? "default" : "outline"
+                      }
                       size="sm"
                       className="flex-1"
                       onClick={() =>
@@ -454,7 +496,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                       ⬅
                     </Button>
                     <Button
-                      variant={block.alignment === "center" ? "default" : "outline"}
+                      variant={
+                        block.alignment === "center" ? "default" : "outline"
+                      }
                       size="sm"
                       className="flex-1"
                       onClick={() =>
@@ -464,7 +508,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                       ⬇
                     </Button>
                     <Button
-                      variant={block.alignment === "right" ? "default" : "outline"}
+                      variant={
+                        block.alignment === "right" ? "default" : "outline"
+                      }
                       size="sm"
                       className="flex-1"
                       onClick={() =>
@@ -482,7 +528,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               <h4 className="text-xs font-bold text-gray-900 mb-3">Spacing</h4>
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="textPadding" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="textPadding"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Padding
                   </Label>
                   <div className="flex gap-2">
@@ -504,7 +553,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                 </div>
 
                 <div>
-                  <Label htmlFor="textMargin" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="textMargin"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Margin
                   </Label>
                   <div className="flex gap-2">
@@ -528,7 +580,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-gray-900 mb-3">Background</h4>
+              <h4 className="text-xs font-bold text-gray-900 mb-3">
+                Background
+              </h4>
               <div className="space-y-3">
                 <div>
                   <Label
@@ -542,7 +596,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     type="color"
                     value={block.backgroundColor}
                     onChange={(e) =>
-                      onBlockUpdate({ ...block, backgroundColor: e.target.value })
+                      onBlockUpdate({
+                        ...block,
+                        backgroundColor: e.target.value,
+                      })
                     }
                   />
                 </div>
@@ -550,10 +607,15 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-gray-900 mb-3">Rounded corners</h4>
+              <h4 className="text-xs font-bold text-gray-900 mb-3">
+                Rounded corners
+              </h4>
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="textRadius" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="textRadius"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Radius
                   </Label>
                   <div className="flex gap-2">
@@ -580,7 +642,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               <h4 className="text-xs font-bold text-gray-900 mb-3">Borders</h4>
               <div className="space-y-3">
                 <div>
-                  <Label htmlFor="textBorderWidth" className="text-xs text-gray-700 mb-1 block">
+                  <Label
+                    htmlFor="textBorderWidth"
+                    className="text-xs text-gray-700 mb-1 block"
+                  >
                     Size
                   </Label>
                   <div className="flex gap-2">
@@ -621,7 +686,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-gray-900 mb-3">Typography</h4>
+              <h4 className="text-xs font-bold text-gray-900 mb-3">
+                Typography
+              </h4>
               <div className="space-y-3">
                 <div>
                   <Label
@@ -712,21 +779,26 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-gray-900 mb-3">Content visibility</h4>
-              <p className="text-xs text-gray-500 mb-3">Display content based on the type of device or other specific conditions</p>
+              <h4 className="text-xs font-bold text-gray-900 mb-3">
+                Content visibility
+              </h4>
+              <p className="text-xs text-gray-500 mb-3">
+                Display content based on the type of device or other specific
+                conditions
+              </p>
               <div className="flex gap-2 flex-wrap">
                 <Button
                   variant={block.visibility === "all" ? "default" : "outline"}
                   size="sm"
-                  onClick={() =>
-                    onBlockUpdate({ ...block, visibility: "all" })
-                  }
+                  onClick={() => onBlockUpdate({ ...block, visibility: "all" })}
                   className="text-xs"
                 >
                   All devices
                 </Button>
                 <Button
-                  variant={block.visibility === "desktop" ? "default" : "outline"}
+                  variant={
+                    block.visibility === "desktop" ? "default" : "outline"
+                  }
                   size="sm"
                   onClick={() =>
                     onBlockUpdate({ ...block, visibility: "desktop" })
@@ -736,7 +808,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   Only on desktop
                 </Button>
                 <Button
-                  variant={block.visibility === "mobile" ? "default" : "outline"}
+                  variant={
+                    block.visibility === "mobile" ? "default" : "outline"
+                  }
                   size="sm"
                   onClick={() =>
                     onBlockUpdate({ ...block, visibility: "mobile" })

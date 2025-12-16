@@ -21,9 +21,10 @@ import {
 let idCounter = 0;
 export function generateId(): string {
   const timestamp = Date.now();
-  const counter = (idCounter++) % 10000;
-  const random = Math.random().toString(36).substring(2, 15) +
-                 Math.random().toString(36).substring(2, 15);
+  const counter = idCounter++ % 10000;
+  const random =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
   return `${timestamp}-${counter}-${random}`;
 }
 
@@ -246,14 +247,26 @@ export function renderBlockToHTML(block: ContentBlock): string {
   switch (block.type) {
     case "title": {
       const titleBlock = block as TitleBlock;
-      const titleWidth = titleBlock.widthUnit === "%" ? `${titleBlock.width}%` : `${titleBlock.width}px`;
-      const titleBorder = titleBlock.borderWidth > 0 ? `border: ${titleBlock.borderWidth}px solid ${titleBlock.borderColor};` : "";
+      const titleWidth =
+        titleBlock.widthUnit === "%"
+          ? `${titleBlock.width}%`
+          : `${titleBlock.width}px`;
+      const titleBorder =
+        titleBlock.borderWidth > 0
+          ? `border: ${titleBlock.borderWidth}px solid ${titleBlock.borderColor};`
+          : "";
       return `<h1 style="font-size: ${titleBlock.fontSize}px; color: ${titleBlock.fontColor}; background-color: ${titleBlock.backgroundColor}; text-align: ${titleBlock.alignment}; font-weight: ${titleBlock.fontWeight}; margin: ${titleBlock.margin}px; padding: ${titleBlock.padding}px; width: ${titleWidth}; border-radius: ${titleBlock.borderRadius}px; ${titleBorder}">${titleBlock.content}</h1>`;
     }
     case "text": {
       const textBlock = block as TextBlock;
-      const textWidth = textBlock.widthUnit === "%" ? `${textBlock.width}%` : `${textBlock.width}px`;
-      const textBorder = textBlock.borderWidth > 0 ? `border: ${textBlock.borderWidth}px solid ${textBlock.borderColor};` : "";
+      const textWidth =
+        textBlock.widthUnit === "%"
+          ? `${textBlock.width}%`
+          : `${textBlock.width}px`;
+      const textBorder =
+        textBlock.borderWidth > 0
+          ? `border: ${textBlock.borderWidth}px solid ${textBlock.borderColor};`
+          : "";
       return `<p style="font-size: ${textBlock.fontSize}px; color: ${textBlock.fontColor}; background-color: ${textBlock.backgroundColor}; text-align: ${textBlock.alignment}; font-weight: ${textBlock.fontWeight}; font-style: ${textBlock.fontStyle}; margin: ${textBlock.margin}px; padding: ${textBlock.padding}px; width: ${textWidth}; border-radius: ${textBlock.borderRadius}px; ${textBorder}">${textBlock.content}</p>`;
     }
     case "image":
