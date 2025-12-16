@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { EmailTemplate, ContentBlock } from "./types";
-import { BlockToolbar } from "./BlockToolbar";
+import { BlocksPanel } from "./BlocksPanel";
 import { SettingsPanel } from "./SettingsPanel";
 import { BlockRenderer } from "./BlockRenderer";
 import { EmailPreview } from "./EmailPreview";
