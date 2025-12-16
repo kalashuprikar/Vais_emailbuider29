@@ -28,21 +28,21 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
     switch (block.type) {
       case "title":
         return (
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
-              <Label htmlFor="titleContent">Content</Label>
+              <Label htmlFor="titleContent" className="text-xs font-semibold text-gray-700 mb-2 block">Content</Label>
               <textarea
                 id="titleContent"
                 value={block.content}
                 onChange={(e) =>
                   onBlockUpdate({ ...block, content: e.target.value })
                 }
-                className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-valasys-orange focus:border-transparent"
                 rows={3}
               />
             </div>
             <div>
-              <Label htmlFor="titleFontSize">Font Size</Label>
+              <Label htmlFor="titleFontSize" className="text-xs font-semibold text-gray-700 mb-2 block">Font Size</Label>
               <Input
                 id="titleFontSize"
                 type="number"
@@ -55,10 +55,11 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     fontSize: parseInt(e.target.value),
                   })
                 }
+                className="focus:ring-valasys-orange focus:ring-2"
               />
             </div>
             <div>
-              <Label htmlFor="titleFontColor">Text Color</Label>
+              <Label htmlFor="titleFontColor" className="text-xs font-semibold text-gray-700 mb-2 block">Text Color</Label>
               <Input
                 id="titleFontColor"
                 type="color"
@@ -69,7 +70,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               />
             </div>
             <div>
-              <Label htmlFor="titleBgColor">Background Color</Label>
+              <Label htmlFor="titleBgColor" className="text-xs font-semibold text-gray-700 mb-2 block">Background Color</Label>
               <Input
                 id="titleBgColor"
                 type="color"
@@ -80,7 +81,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               />
             </div>
             <div>
-              <Label htmlFor="titleAlignment">Alignment</Label>
+              <Label htmlFor="titleAlignment" className="text-xs font-semibold text-gray-700 mb-2 block">Alignment</Label>
               <select
                 id="titleAlignment"
                 value={block.alignment}
@@ -90,7 +91,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     alignment: e.target.value as any,
                   })
                 }
-                className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-valasys-orange focus:border-transparent"
               >
                 <option value="left">Left</option>
                 <option value="center">Center</option>
