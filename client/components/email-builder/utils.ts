@@ -358,7 +358,7 @@ export function renderBlockToHTML(block: ContentBlock): string {
     case "social":
       return `<div style="text-align: ${block.alignment}; padding: 20px 0;"><p>Follow us on social media</p></div>`;
     case "html":
-      return block.content;
+      return `<div style="width: ${block.width}${block.widthUnit}; padding: ${block.padding}px; margin: ${block.margin}px;">${block.content}</div>`;
     case "divider":
       return `<hr style="border: none; border-top: ${block.height}px solid ${block.color}; margin: ${block.margin}px 0;" />`;
     case "product":
