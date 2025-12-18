@@ -134,7 +134,7 @@ export const EmailCanvas: React.FC<EmailCanvasProps> = ({
             </div>
           ) : (
             <div className="space-y-0">
-              {template.blocks.map((block) => (
+              {template.blocks.map((block, index) => (
                 <div key={block.id}>
                   <BlockRenderer
                     block={block}
@@ -144,6 +144,24 @@ export const EmailCanvas: React.FC<EmailCanvasProps> = ({
                     onBlockSelect={onBlockSelect}
                     onFooterElementSelect={onFooterElementSelect}
                   />
+                  {selectedBlockId === block.id && (
+                    <div className="px-4 py-2">
+                      <BlockActions
+                        blockId={block.id}
+                        blockIndex={index}
+                        totalBlocks={template.blocks.length}
+                        onAddBlock={(newBlock, position) => {
+                          onAddBlock(newBlock, position);
+                        }}
+                        onMoveUp={(idx) => onMoveBlockUp?.(idx)}
+                        onMoveDown={(idx) => onMoveBlockDown?.(idx)}
+                        onDuplicate={(_, position) => {
+                          onDuplicateBlock?.(block, position);
+                        }}
+                        onDelete={() => onDeleteBlock?.(block.id)}
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
