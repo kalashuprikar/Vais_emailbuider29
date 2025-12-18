@@ -44,8 +44,6 @@ export const BlockActions: React.FC<BlockActionsProps> = ({
   blockIndex,
   totalBlocks,
   onAddBlock,
-  onMoveUp,
-  onMoveDown,
   onDuplicate,
   onDelete,
 }) => {
