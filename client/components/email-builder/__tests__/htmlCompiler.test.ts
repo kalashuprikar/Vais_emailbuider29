@@ -82,8 +82,48 @@ describe("HTML Compiler", () => {
     it("should handle invalid HTML gracefully", () => {
       const input = "<h1>Unclosed tag";
       const result = compileHTML(input);
-      // Should return original content if parsing fails
+      // Should return sanitized content
       expect(result).toBeTruthy();
+    });
+
+    it("should handle empty tags", () => {
+      const input = "<><h1>Title</h1>";
+      const result = compileHTML(input);
+      expect(result).toContain("Title");
+    });
+
+    it("should handle malformed tag content", () => {
+      const input = "< h1 >Title</h1>";
+      const result = compileHTML(input);
+      // Should handle gracefully
+      expect(result).toBeTruthy();
+    });
+
+    it("should handle comments", () => {
+      const input = "<!-- comment --><h1>Title</h1>";
+      const result = compileHTML(input);
+      expect(result).toContain("<h1");
+      expect(result).toContain("Title");
+    });
+
+    it("should handle tags with hyphens and numbers", () => {
+      const input = "<custom-element-123>Content</custom-element-123>";
+      const result = compileHTML(input);
+      expect(result).toContain("custom-element-123");
+    });
+
+    it("should handle attributes with hyphens", () => {
+      const input = '<div data-test-attr="value">Content</div>';
+      const result = compileHTML(input);
+      expect(result).toContain("data-test-attr");
+    });
+
+    it("should handle multiple nested tags with attributes", () => {
+      const input = '<h1 style="color: blue;">Title <span class="highlight">highlighted</span></h1>';
+      const result = compileHTML(input);
+      expect(result).toContain("<h1");
+      expect(result).toContain("highlighted");
+      expect(result).toContain("</h1>");
     });
   });
 
