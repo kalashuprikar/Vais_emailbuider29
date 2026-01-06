@@ -125,6 +125,12 @@ const utilityItems = [
     tourId: "templates-nav",
   },
   {
+    name: "Landing Pages",
+    href: "/landing-pages",
+    icon: Layers,
+    tourId: "landing-pages-nav",
+  },
+  {
     name: "Integrations",
     href: "/integrations",
     icon: Plug,
