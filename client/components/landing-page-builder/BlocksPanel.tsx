@@ -353,10 +353,33 @@ export const BlocksPanel: React.FC<BlocksPanelProps> = ({ onAddBlock, onSelectBl
                             {getIcon(item.id)}
                             <span>{item.label}</span>
                           </div>
-                          {item.variants && item.variants.length > 0 && (
+                          {item.variants && item.variants.length > 0 ? (
+                            expandedItems.has(item.id) ? (
+                              <ChevronDown className="w-4 h-4 text-gray-300" />
+                            ) : (
+                              <ChevronRight className="w-4 h-4 text-gray-300" />
+                            )
+                          ) : (
                             <ChevronRight className="w-4 h-4 text-gray-300" />
                           )}
                         </button>
+
+                        {item.variants && expandedItems.has(item.id) && (
+                          <div className="bg-gray-50 border-t border-gray-100">
+                            {item.variants.map((variant) => (
+                              <button
+                                key={variant.id}
+                                onClick={() => handleVariantClick(variant)}
+                                className="w-full text-left px-8 py-2.5 text-sm text-gray-600 hover:bg-white hover:text-valasys-orange transition-colors border-b border-gray-100 last:border-b-0"
+                              >
+                                <div className="font-medium">{variant.name}</div>
+                                {variant.description && (
+                                  <div className="text-gray-400 text-xs mt-0.5">{variant.description}</div>
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
