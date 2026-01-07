@@ -129,14 +129,9 @@ export const LandingPageBuilder: React.FC<LandingPageBuilderProps> = ({
     // Map template IDs to actual blocks
     const templateBlockMap: Record<string, () => LandingPageBlock> = {
       "template-1": createHeroBlock,
-      "template-2": createFeaturesBlock,
-      "template-3": createTestimonialsBlock,
+      "template-2": createHeroBlock,
+      "template-3": createFeaturesBlock,
       "template-4": createAboutBlock,
-      "template-5": createContactFormBlock,
-      "template-6": createFeaturesBlock,
-      "template-7": createHeaderBlock,
-      "template-8": createFooterBlock,
-      "template-9": createAboutBlock,
     };
 
     const blockCreator = templateBlockMap[templateId];
