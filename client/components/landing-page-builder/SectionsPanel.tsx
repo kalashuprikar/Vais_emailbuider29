@@ -80,7 +80,9 @@ const sectionTemplates: SectionTemplate[] = [
     preview: (
       <div className="bg-white border border-gray-200 rounded-xl p-6 h-40 flex">
         <div className="flex-1 flex flex-col justify-center gap-2">
-          <div className="text-xs font-semibold text-gray-900">Infinite canvas.</div>
+          <div className="text-xs font-semibold text-gray-900">
+            Infinite canvas.
+          </div>
           <div className="text-xs text-gray-500 line-clamp-2">
             Create layouts with your canvas
           </div>
@@ -99,14 +101,18 @@ const sectionTemplates: SectionTemplate[] = [
     preview: (
       <div className="bg-white border border-gray-200 rounded-xl p-6 h-40 flex gap-4">
         <div className="flex-1 flex flex-col justify-center gap-2">
-          <div className="text-xs font-semibold text-gray-900">Infinite canvas.</div>
+          <div className="text-xs font-semibold text-gray-900">
+            Infinite canvas.
+          </div>
           <div className="text-xs text-gray-500 line-clamp-2">
             Design inspiration section
           </div>
           <div className="h-6 w-16 bg-gray-100 rounded mt-2"></div>
         </div>
         <div className="flex-1 flex flex-col justify-center gap-2">
-          <div className="text-xs font-semibold text-gray-900">Blazing fast.</div>
+          <div className="text-xs font-semibold text-gray-900">
+            Blazing fast.
+          </div>
           <div className="text-xs text-gray-500 line-clamp-2">
             Performance optimized
           </div>
@@ -146,15 +152,21 @@ const sectionTemplates: SectionTemplate[] = [
       <div className="bg-white border border-gray-200 rounded-xl p-6 h-40 flex gap-3">
         <div className="flex-1 flex flex-col justify-center items-center gap-2">
           <div className="w-6 h-6 bg-gray-100 rounded"></div>
-          <div className="text-xs font-semibold text-gray-900 text-center">Design</div>
+          <div className="text-xs font-semibold text-gray-900 text-center">
+            Design
+          </div>
         </div>
         <div className="flex-1 flex flex-col justify-center items-center gap-2">
           <div className="w-6 h-6 bg-gray-100 rounded"></div>
-          <div className="text-xs font-semibold text-gray-900 text-center">Write</div>
+          <div className="text-xs font-semibold text-gray-900 text-center">
+            Write
+          </div>
         </div>
         <div className="flex-1 flex flex-col justify-center items-center gap-2">
           <div className="w-6 h-6 bg-gray-100 rounded"></div>
-          <div className="text-xs font-semibold text-gray-900 text-center">Publish</div>
+          <div className="text-xs font-semibold text-gray-900 text-center">
+            Publish
+          </div>
         </div>
       </div>
     ),
