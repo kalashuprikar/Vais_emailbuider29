@@ -70,9 +70,15 @@ export const HeaderBlockComponent: React.FC<HeaderBlockComponentProps> = ({
             color: block.companyFontColor,
             fontWeight: block.companyFontWeight,
             display: "block",
+            position: "relative",
           }}
         >
           {block.companyName || "Company Name"}
+          {!block.companyName && (
+            <span className="text-xs text-gray-400" style={{ fontSize: "12px", fontWeight: "normal" }}>
+              (Edit in Settings)
+            </span>
+          )}
         </span>
       </div>
 
