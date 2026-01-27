@@ -19,6 +19,12 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+import {
   createEmptyTemplate,
   saveTemplateToLocalStorage,
   getTemplatesFromLocalStorage,
