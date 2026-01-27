@@ -281,9 +281,27 @@ export function createHeaderBlock(logo = ""): HeaderBlock {
     type: "header",
     id: generateId(),
     logo,
+    logoAlt: "Company Logo",
+    logoWidth: 40,
+    logoHeight: 40,
+    companyName: "Your Company",
+    companyFontSize: 18,
+    companyFontColor: "#000000",
+    companyFontWeight: "bold",
+    links: [
+      { id: generateId(), text: "Sign in", url: "#" },
+      { id: generateId(), text: "View Online", url: "#" },
+    ],
+    linksFontSize: 14,
+    linksFontColor: "#666666",
     backgroundColor: "#ffffff",
     padding: 20,
+    margin: 0,
+    borderWidth: 0,
+    borderColor: "#cccccc",
+    borderRadius: 0,
     alignment: "center",
+    visibility: "all",
   };
 }
 
