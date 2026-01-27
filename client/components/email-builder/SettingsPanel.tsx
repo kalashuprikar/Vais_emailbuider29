@@ -2516,7 +2516,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   onClick={() => {
                     onBlockUpdate({
                       ...headerBlock,
-                      links: [...headerBlock.links, { id: Math.random().toString(), text: "", url: "" }],
+                      links: [...headerBlock.links, { id: generateId(), text: "", url: "" }],
                     });
                   }}
                 >
