@@ -161,20 +161,30 @@ export const SourceCodeView: React.FC<SourceCodeViewProps> = ({ template }) => {
                 {copied ? "Copied!" : "Copy Code"}
               </TooltipContent>
             </Tooltip>
-            <Tooltip open={openDownloadTooltip} onOpenChange={setOpenDownloadTooltip}>
-              <TooltipTrigger asChild>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={handleDownload}
                 >
                   <Download className="w-4 h-4" />
                 </Button>
-              </TooltipTrigger>
-              <TooltipContent className="font-medium" side="top">
-                {downloaded ? "Downloaded" : "Download"}
-              </TooltipContent>
-            </Tooltip>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={handleDownloadHTML}>
+                  <Download className="w-4 h-4 mr-2" />
+                  Download HTML
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDownloadPDF}>
+                  <Download className="w-4 h-4 mr-2" />
+                  Download Preview (PDF)
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDownloadJSON}>
+                  <FileJson className="w-4 h-4 mr-2" />
+                  Download Template (JSON)
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </TooltipProvider>
       </div>
