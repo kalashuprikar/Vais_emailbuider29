@@ -8,7 +8,13 @@ import {
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { Copy, Download } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { Copy, Download, FileJson } from "lucide-react";
 
 interface SourceCodeViewProps {
   template: EmailTemplate;
