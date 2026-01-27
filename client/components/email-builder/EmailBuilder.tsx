@@ -258,7 +258,7 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Button
                 variant="outline"
                 size="sm"
@@ -266,10 +266,14 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
                   setPreviewMode(false);
                   setShowSourceCode(!showSourceCode);
                 }}
-                className={showSourceCode ? "bg-valasys-orange text-white" : ""}
+                className={cn(
+                  "flex flex-col items-center justify-center h-auto py-2 px-3",
+                  showSourceCode ? "bg-valasys-orange text-white" : "hover:bg-gray-100"
+                )}
                 title="View Source"
               >
-                <Code className="w-4 h-4" />
+                <Code className="w-4 h-4 mb-1" />
+                <span className="text-xs font-medium">View Source</span>
               </Button>
               <Button
                 variant="outline"
@@ -278,18 +282,24 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
                   setShowSourceCode(false);
                   setPreviewMode(!previewMode);
                 }}
-                className={previewMode ? "bg-valasys-orange text-white" : ""}
+                className={cn(
+                  "flex flex-col items-center justify-center h-auto py-2 px-3",
+                  previewMode ? "bg-valasys-orange text-white" : "hover:bg-gray-100"
+                )}
                 title="Preview & test"
               >
-                <Eye className="w-4 h-4" />
+                <Eye className="w-4 h-4 mb-1" />
+                <span className="text-xs font-medium">Preview</span>
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleDownloadHTML}
+                className="flex flex-col items-center justify-center h-auto py-2 px-3 hover:bg-gray-100"
                 title="Download HTML"
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-4 h-4 mb-1" />
+                <span className="text-xs font-medium">Download</span>
               </Button>
               <Button
                 onClick={() => setShowSaveDialog(true)}
