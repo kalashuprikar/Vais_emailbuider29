@@ -45,6 +45,25 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
   const [selectedFeatureId, setSelectedFeatureId] = useState<string | null>(
     null,
   );
+  const [titleWidthInput, setTitleWidthInput] = useState<string>(
+    String(block?.type === "title" ? (block.width ?? 100) : 100),
+  );
+  const [videoWidthInput, setVideoWidthInput] = useState<string>(
+    String(block?.type === "video" ? (block.width ?? 300) : 300),
+  );
+  const [videoHeightInput, setVideoHeightInput] = useState<string>(
+    String(block?.type === "video" ? (block.height ?? 200) : 200),
+  );
+
+  // Update input states when block changes
+  React.useEffect(() => {
+    if (block?.type === "title") {
+      setTitleWidthInput(String(block.width ?? 100));
+    } else if (block?.type === "video") {
+      setVideoWidthInput(String(block.width ?? 300));
+      setVideoHeightInput(String(block.height ?? 200));
+    }
+  }, [block?.id, block?.type, block?.width, block?.height]);
 
   // Initialize selectedCardId when block changes to twoColumnCard
   React.useEffect(() => {
@@ -144,23 +163,71 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                       id="titleWidth"
                       type="text"
                       inputMode="numeric"
-                      value={
-                        isNaN(block.width as any) ? 100 : (block.width ?? 100)
-                      }
+                      value={titleWidthInput}
                       onChange={(e) => {
                         const inputValue = e.target.value;
-                        // Only allow digits
+                        const numericValue = inputValue.replace(/[^\d]/g, "");
+
+                        setTitleWidthInput(inputValue);
+
+                        if (numericValue !== "") {
+                          const num = parseInt(numericValue);
+                          const maxValue = block.widthUnit === "%" ? 100 : 1000;
+                          if (num >= 1 && num <= maxValue) {
+                            onBlockUpdate({
+                              ...block,
+                              width: num,
+                            });
+                          }
+                        }
+                      }}
+                      onBlur={(e) => {
+                        const inputValue = e.target.value;
                         const numericValue = inputValue.replace(/[^\d]/g, "");
                         if (numericValue === "") {
                           onBlockUpdate({
                             ...block,
                             width: 100,
                           });
+                          setTitleWidthInput("100");
                         } else {
+                          const num = parseInt(numericValue);
+                          const maxValue = block.widthUnit === "%" ? 100 : 1000;
+                          if (num > maxValue) {
+                            onBlockUpdate({
+                              ...block,
+                              width: maxValue,
+                            });
+                            setTitleWidthInput(String(maxValue));
+                          } else if (num < 1) {
+                            onBlockUpdate({
+                              ...block,
+                              width: 1,
+                            });
+                            setTitleWidthInput("1");
+                          }
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "ArrowUp") {
+                          e.preventDefault();
+                          const currentWidth = parseInt(titleWidthInput) || 100;
+                          const maxValue = block.widthUnit === "%" ? 100 : 1000;
+                          const newWidth = Math.min(currentWidth + 1, maxValue);
                           onBlockUpdate({
                             ...block,
-                            width: parseInt(numericValue),
+                            width: newWidth,
                           });
+                          setTitleWidthInput(String(newWidth));
+                        } else if (e.key === "ArrowDown") {
+                          e.preventDefault();
+                          const currentWidth = parseInt(titleWidthInput) || 100;
+                          const newWidth = Math.max(1, currentWidth - 1);
+                          onBlockUpdate({
+                            ...block,
+                            width: newWidth,
+                          });
+                          setTitleWidthInput(String(newWidth));
                         }
                       }}
                       className="flex-1 focus:ring-valasys-orange focus:ring-2"
@@ -3742,8 +3809,25 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     <Input
                       type="text"
                       inputMode="numeric"
-                      value={block.width ?? 300}
+                      value={videoWidthInput}
                       onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const numericValue = inputValue.replace(/[^\d]/g, "");
+
+                        setVideoWidthInput(inputValue);
+
+                        if (numericValue !== "") {
+                          const num = parseInt(numericValue);
+                          const maxValue = block.widthUnit === "%" ? 100 : 1000;
+                          if (num >= 1 && num <= maxValue) {
+                            onBlockUpdate({
+                              ...block,
+                              width: num,
+                            });
+                          }
+                        }
+                      }}
+                      onBlur={(e) => {
                         const inputValue = e.target.value;
                         const numericValue = inputValue.replace(/[^\d]/g, "");
                         if (numericValue === "") {
@@ -3751,11 +3835,45 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                             ...block,
                             width: 300,
                           });
+                          setVideoWidthInput("300");
                         } else {
+                          const num = parseInt(numericValue);
+                          const maxValue = block.widthUnit === "%" ? 100 : 1000;
+                          if (num > maxValue) {
+                            onBlockUpdate({
+                              ...block,
+                              width: maxValue,
+                            });
+                            setVideoWidthInput(String(maxValue));
+                          } else if (num < 1) {
+                            onBlockUpdate({
+                              ...block,
+                              width: 1,
+                            });
+                            setVideoWidthInput("1");
+                          }
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "ArrowUp") {
+                          e.preventDefault();
+                          const currentWidth = parseInt(videoWidthInput) || 300;
+                          const maxValue = block.widthUnit === "%" ? 100 : 1000;
+                          const newWidth = Math.min(currentWidth + 1, maxValue);
                           onBlockUpdate({
                             ...block,
-                            width: parseInt(numericValue),
+                            width: newWidth,
                           });
+                          setVideoWidthInput(String(newWidth));
+                        } else if (e.key === "ArrowDown") {
+                          e.preventDefault();
+                          const currentWidth = parseInt(videoWidthInput) || 300;
+                          const newWidth = Math.max(1, currentWidth - 1);
+                          onBlockUpdate({
+                            ...block,
+                            width: newWidth,
+                          });
+                          setVideoWidthInput(String(newWidth));
                         }
                       }}
                       className="flex-1 focus:ring-valasys-orange focus:ring-2"
@@ -3784,8 +3902,24 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     <Input
                       type="text"
                       inputMode="numeric"
-                      value={block.height ?? 200}
+                      value={videoHeightInput}
                       onChange={(e) => {
+                        const inputValue = e.target.value;
+                        const numericValue = inputValue.replace(/[^\d]/g, "");
+
+                        setVideoHeightInput(inputValue);
+
+                        if (numericValue !== "") {
+                          const num = parseInt(numericValue);
+                          if (num >= 1 && num <= 1000) {
+                            onBlockUpdate({
+                              ...block,
+                              height: num,
+                            });
+                          }
+                        }
+                      }}
+                      onBlur={(e) => {
                         const inputValue = e.target.value;
                         const numericValue = inputValue.replace(/[^\d]/g, "");
                         if (numericValue === "") {
@@ -3793,11 +3927,45 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                             ...block,
                             height: 200,
                           });
+                          setVideoHeightInput("200");
                         } else {
+                          const num = parseInt(numericValue);
+                          if (num > 1000) {
+                            onBlockUpdate({
+                              ...block,
+                              height: 1000,
+                            });
+                            setVideoHeightInput("1000");
+                          } else if (num < 1) {
+                            onBlockUpdate({
+                              ...block,
+                              height: 1,
+                            });
+                            setVideoHeightInput("1");
+                          }
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "ArrowUp") {
+                          e.preventDefault();
+                          const currentHeight =
+                            parseInt(videoHeightInput) || 200;
+                          const newHeight = Math.min(currentHeight + 1, 1000);
                           onBlockUpdate({
                             ...block,
-                            height: parseInt(numericValue),
+                            height: newHeight,
                           });
+                          setVideoHeightInput(String(newHeight));
+                        } else if (e.key === "ArrowDown") {
+                          e.preventDefault();
+                          const currentHeight =
+                            parseInt(videoHeightInput) || 200;
+                          const newHeight = Math.max(1, currentHeight - 1);
+                          onBlockUpdate({
+                            ...block,
+                            height: newHeight,
+                          });
+                          setVideoHeightInput(String(newHeight));
                         }
                       }}
                       className="flex-1 focus:ring-valasys-orange focus:ring-2"
