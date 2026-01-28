@@ -334,8 +334,23 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label className="text-xs text-gray-700">Margin</Label>
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="groupMargin"
+                        checked={groupMarginSides}
+                        onCheckedChange={(checked) =>
+                          setGroupMarginSides(checked as boolean)
+                        }
+                      />
+                      <Label
+                        htmlFor="groupMargin"
+                        className="text-xs text-gray-600 cursor-pointer"
+                      >
+                        Group sides
+                      </Label>
+                    </div>
                   </div>
-                  {!groupMarginSides ? (
+                  {groupMarginSides ? (
                     <div className="flex gap-2">
                       <Input
                         type="number"
@@ -444,10 +459,32 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   <Label className="text-xs text-gray-700 mb-2 block">
                     Image
                   </Label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="bgImageUpload"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                          onBlockUpdate({
+                            ...block,
+                            backgroundImage: event.target?.result as string,
+                          });
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
                   <Button
                     variant="outline"
                     size="sm"
                     className="w-full text-xs"
+                    onClick={() =>
+                      document.getElementById("bgImageUpload")?.click()
+                    }
                   >
                     Add image
                   </Button>
@@ -459,6 +496,13 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   <Input
                     type="text"
                     placeholder="https://example.com/image.jpg"
+                    value={(block as any).backgroundImage || ""}
+                    onChange={(e) =>
+                      onBlockUpdate({
+                        ...block,
+                        backgroundImage: e.target.value,
+                      })
+                    }
                     className="focus:ring-valasys-orange focus:ring-2"
                   />
                 </div>
@@ -881,8 +925,23 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label className="text-xs text-gray-700">Margin</Label>
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="groupMargin"
+                        checked={groupMarginSides}
+                        onCheckedChange={(checked) =>
+                          setGroupMarginSides(checked as boolean)
+                        }
+                      />
+                      <Label
+                        htmlFor="groupMargin"
+                        className="text-xs text-gray-600 cursor-pointer"
+                      >
+                        Group sides
+                      </Label>
+                    </div>
                   </div>
-                  {!groupMarginSides ? (
+                  {groupMarginSides ? (
                     <div className="flex gap-2">
                       <Input
                         type="number"
@@ -991,10 +1050,32 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   <Label className="text-xs text-gray-700 mb-2 block">
                     Image
                   </Label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="bgImageUpload"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                          onBlockUpdate({
+                            ...block,
+                            backgroundImage: event.target?.result as string,
+                          });
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
                   <Button
                     variant="outline"
                     size="sm"
                     className="w-full text-xs"
+                    onClick={() =>
+                      document.getElementById("bgImageUpload")?.click()
+                    }
                   >
                     Add image
                   </Button>
@@ -1006,6 +1087,13 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   <Input
                     type="text"
                     placeholder="https://example.com/image.jpg"
+                    value={(block as any).backgroundImage || ""}
+                    onChange={(e) =>
+                      onBlockUpdate({
+                        ...block,
+                        backgroundImage: e.target.value,
+                      })
+                    }
                     className="focus:ring-valasys-orange focus:ring-2"
                   />
                 </div>
@@ -1226,31 +1314,73 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               <div className="flex items-center justify-between mb-3">
                 <h4 className="text-xs font-bold text-gray-900">Visual</h4>
                 <div className="flex gap-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="imageBlockUpload"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                          onBlockUpdate({
+                            ...block,
+                            src: event.target?.result as string,
+                          });
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
                   <Button
                     variant="link"
                     size="sm"
                     className="text-xs h-auto p-0 text-valasys-orange"
+                    onClick={() =>
+                      document.getElementById("imageBlockUpload")?.click()
+                    }
                   >
-                    Edit
+                    Upload
                   </Button>
                   <Button
                     variant="link"
                     size="sm"
                     className="text-xs h-auto p-0 text-valasys-orange"
+                    onClick={() =>
+                      document.getElementById("imageBlockUpload")?.click()
+                    }
                   >
                     Replace
                   </Button>
                 </div>
               </div>
-              <div className="bg-gray-50 rounded border border-gray-200 aspect-video flex items-center justify-center mb-3">
-                <div className="text-center">
-                  <div className="text-gray-400 text-xs mb-1">
-                    Image placeholder
+              {(block as any).src ? (
+                <div className="bg-gray-50 rounded border border-gray-200 aspect-video flex items-center justify-center mb-3 overflow-hidden">
+                  <img
+                    src={(block as any).src}
+                    alt="Preview"
+                    className="max-w-full max-h-full"
+                    onError={() => (
+                      <div className="text-gray-400 text-xs">
+                        Image failed to load
+                      </div>
+                    )}
+                  />
+                </div>
+              ) : (
+                <div className="bg-gray-50 rounded border border-gray-200 aspect-video flex items-center justify-center mb-3">
+                  <div className="text-center">
+                    <div className="text-gray-400 text-xs mb-1">
+                      No image added yet
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
               <div className="text-xs text-gray-500 mb-3">
-                1200 x 675 px - 20 KB
+                {(block as any).src
+                  ? "Image added"
+                  : "Upload or paste URL to add image"}
               </div>
             </div>
 
@@ -1262,6 +1392,13 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                 <Input
                   type="text"
                   placeholder="https://example.com/image.jpg"
+                  value={(block as any).src || ""}
+                  onChange={(e) =>
+                    onBlockUpdate({
+                      ...block,
+                      src: e.target.value,
+                    })
+                  }
                   className="flex-1 focus:ring-valasys-orange focus:ring-2"
                 />
                 <Button variant="outline" size="sm" className="px-2">
@@ -1278,6 +1415,13 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                 <Input
                   type="text"
                   placeholder="Describe the image"
+                  value={(block as any).alt || ""}
+                  onChange={(e) =>
+                    onBlockUpdate({
+                      ...block,
+                      alt: e.target.value,
+                    })
+                  }
                   className="flex-1 focus:ring-valasys-orange focus:ring-2"
                 />
                 <Button variant="outline" size="sm" className="px-2">
@@ -1594,8 +1738,23 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label className="text-xs text-gray-700">Margin</Label>
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="groupMargin"
+                        checked={groupMarginSides}
+                        onCheckedChange={(checked) =>
+                          setGroupMarginSides(checked as boolean)
+                        }
+                      />
+                      <Label
+                        htmlFor="groupMargin"
+                        className="text-xs text-gray-600 cursor-pointer"
+                      >
+                        Group sides
+                      </Label>
+                    </div>
                   </div>
-                  {!groupMarginSides ? (
+                  {groupMarginSides ? (
                     <div className="flex gap-2">
                       <Input
                         type="number"
@@ -4482,8 +4641,23 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label className="text-xs text-gray-700">Margin</Label>
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="groupMargin"
+                        checked={groupMarginSides}
+                        onCheckedChange={(checked) =>
+                          setGroupMarginSides(checked as boolean)
+                        }
+                      />
+                      <Label
+                        htmlFor="groupMargin"
+                        className="text-xs text-gray-600 cursor-pointer"
+                      >
+                        Group sides
+                      </Label>
+                    </div>
                   </div>
-                  {!groupMarginSides ? (
+                  {groupMarginSides ? (
                     <div className="flex gap-2">
                       <Input
                         type="number"

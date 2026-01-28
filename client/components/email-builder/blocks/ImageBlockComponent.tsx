@@ -34,16 +34,27 @@ export const ImageBlockComponent: React.FC<ImageBlockComponentProps> = ({
       style={{ textAlign: block.alignment as any }}
     >
       {block.src ? (
-        <img
-          src={block.src}
-          alt={block.alt}
-          style={{
-            width: `${block.width}${block.widthUnit}`,
-            height: `${block.height}${block.heightUnit}`,
-            display: block.alignment === "center" ? "block" : "inline",
-            margin: block.alignment === "center" ? "0 auto" : "0",
-          }}
-        />
+        <div style={{ textAlign: block.alignment as any }}>
+          <img
+            src={block.src}
+            alt={block.alt || "Image"}
+            style={{
+              width: `${block.width}${block.widthUnit}`,
+              height:
+                block.heightUnit === "%"
+                  ? `${block.height}${block.heightUnit}`
+                  : `${block.height}px`,
+              display: block.alignment === "center" ? "block" : "inline",
+              margin: block.alignment === "center" ? "0 auto" : "0",
+              maxWidth: "100%",
+              objectFit: "contain",
+            }}
+            onError={(e) => {
+              console.error("Image failed to load:", block.src);
+              (e.target as HTMLImageElement).style.border = "2px solid red";
+            }}
+          />
+        </div>
       ) : (
         <label className="flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded cursor-pointer hover:bg-gray-50">
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
