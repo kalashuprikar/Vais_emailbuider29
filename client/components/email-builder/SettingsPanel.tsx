@@ -163,18 +163,20 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                       id="titleWidth"
                       type="text"
                       inputMode="numeric"
-                      value={String(
-                        isNaN(block.width as any) ? 100 : (block.width ?? 100)
-                      )}
+                      value={titleWidthInput}
                       onChange={(e) => {
                         const inputValue = e.target.value;
-                        // Only allow digits
+                        setTitleWidthInput(inputValue);
+                      }}
+                      onBlur={(e) => {
+                        const inputValue = e.target.value;
                         const numericValue = inputValue.replace(/[^\d]/g, "");
                         if (numericValue === "") {
                           onBlockUpdate({
                             ...block,
                             width: 100,
                           });
+                          setTitleWidthInput("100");
                         } else {
                           const num = parseInt(numericValue);
                           const maxValue = block.widthUnit === "%" ? 100 : 1000;
@@ -183,27 +185,35 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                               ...block,
                               width: num,
                             });
+                          } else {
+                            onBlockUpdate({
+                              ...block,
+                              width: maxValue,
+                            });
+                            setTitleWidthInput(String(maxValue));
                           }
                         }
                       }}
                       onKeyDown={(e) => {
                         if (e.key === "ArrowUp") {
                           e.preventDefault();
-                          const currentWidth = block.width ?? 100;
+                          const currentWidth = parseInt(titleWidthInput) || 100;
                           const maxValue = block.widthUnit === "%" ? 100 : 1000;
                           const newWidth = Math.min(currentWidth + 1, maxValue);
                           onBlockUpdate({
                             ...block,
                             width: newWidth,
                           });
+                          setTitleWidthInput(String(newWidth));
                         } else if (e.key === "ArrowDown") {
                           e.preventDefault();
-                          const currentWidth = block.width ?? 100;
+                          const currentWidth = parseInt(titleWidthInput) || 100;
                           const newWidth = Math.max(1, currentWidth - 1);
                           onBlockUpdate({
                             ...block,
                             width: newWidth,
                           });
+                          setTitleWidthInput(String(newWidth));
                         }
                       }}
                       className="flex-1 focus:ring-valasys-orange focus:ring-2"
