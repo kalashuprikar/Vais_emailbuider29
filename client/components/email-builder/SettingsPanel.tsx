@@ -1526,13 +1526,15 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   <div className="flex gap-2">
                     <Input
                       type="number"
+                      step="any"
                       value={block.height ?? 200}
-                      onChange={(e) =>
+                      onChange={(e) => {
+                        const value = e.target.value ? parseInt(e.target.value) : 200;
                         onBlockUpdate({
                           ...block,
-                          height: parseInt(e.target.value) || 200,
-                        })
-                      }
+                          height: value,
+                        });
+                      }}
                       className="flex-1 focus:ring-valasys-orange focus:ring-2"
                     />
                     <select
