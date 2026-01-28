@@ -166,7 +166,20 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                       value={titleWidthInput}
                       onChange={(e) => {
                         const inputValue = e.target.value;
+                        const numericValue = inputValue.replace(/[^\d]/g, "");
+
                         setTitleWidthInput(inputValue);
+
+                        if (numericValue !== "") {
+                          const num = parseInt(numericValue);
+                          const maxValue = block.widthUnit === "%" ? 100 : 1000;
+                          if (num >= 1 && num <= maxValue) {
+                            onBlockUpdate({
+                              ...block,
+                              width: num,
+                            });
+                          }
+                        }
                       }}
                       onBlur={(e) => {
                         const inputValue = e.target.value;
@@ -180,17 +193,18 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                         } else {
                           const num = parseInt(numericValue);
                           const maxValue = block.widthUnit === "%" ? 100 : 1000;
-                          if (num <= maxValue) {
-                            onBlockUpdate({
-                              ...block,
-                              width: num,
-                            });
-                          } else {
+                          if (num > maxValue) {
                             onBlockUpdate({
                               ...block,
                               width: maxValue,
                             });
                             setTitleWidthInput(String(maxValue));
+                          } else if (num < 1) {
+                            onBlockUpdate({
+                              ...block,
+                              width: 1,
+                            });
+                            setTitleWidthInput("1");
                           }
                         }
                       }}
