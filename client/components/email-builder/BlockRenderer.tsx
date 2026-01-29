@@ -29,6 +29,7 @@ interface BlockRendererProps {
   selectedFooterElement?: string | null;
   onBlockUpdate: (block: ContentBlock) => void;
   onBlockSelect?: (blockId: string) => void;
+  onEditingBlockChange?: (id: string | null) => void;
   onFooterElementSelect?: (element: string | null) => void;
 }
 
@@ -39,6 +40,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
   selectedFooterElement,
   onBlockUpdate,
   onBlockSelect,
+  onEditingBlockChange,
   onFooterElementSelect,
 }) => {
   const handleClick = () => {
@@ -54,6 +56,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
             isSelected={isSelected}
             isEditing={isEditing || false}
             onEdit={() => onBlockSelect?.(block.id)}
+            onEditingChange={onEditingBlockChange}
             onContentChange={(content) => onBlockUpdate({ ...block, content })}
           />
         </div>
@@ -66,6 +69,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
             isSelected={isSelected}
             isEditing={isEditing || false}
             onEdit={() => onBlockSelect?.(block.id)}
+            onEditingChange={onEditingBlockChange}
             onContentChange={(content) => onBlockUpdate({ ...block, content })}
           />
         </div>

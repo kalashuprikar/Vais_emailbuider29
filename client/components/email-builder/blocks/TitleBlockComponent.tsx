@@ -7,6 +7,7 @@ interface TitleBlockComponentProps {
   isSelected: boolean;
   isEditing: boolean;
   onEdit: () => void;
+  onEditingChange?: (id: string | null) => void;
   onContentChange: (content: string) => void;
 }
 
@@ -15,11 +16,26 @@ export const TitleBlockComponent: React.FC<TitleBlockComponentProps> = ({
   isSelected,
   isEditing,
   onEdit,
+  onEditingChange,
   onContentChange,
 }) => {
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     onEdit();
+  };
+
+  const handleDoubleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isSelected && onEditingChange) {
+      onEditingChange(block.id);
+    }
+  };
+
+  const handleEditIconClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onEditingChange) {
+      onEditingChange(block.id);
+    }
   };
 
   const containerStyle = {
@@ -68,21 +84,26 @@ export const TitleBlockComponent: React.FC<TitleBlockComponentProps> = ({
         isSelected ? "ring-2 ring-valasys-orange" : ""
       }`}
       onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
       style={containerStyle}
     >
       {isEditing ? (
         <textarea
           value={block.content}
           onChange={(e) => onContentChange(e.target.value)}
+          onBlur={() => onEditingChange?.(null)}
           autoFocus
-          className="w-full border border-valasys-orange rounded px-2 py-1 font-serif"
+          className="w-full rounded px-2 py-1 font-serif outline-none"
           style={textStyle}
         />
       ) : (
         <h1 style={textStyle}>{block.content}</h1>
       )}
       {isSelected && !isEditing && (
-        <div className="absolute top-1 right-1 bg-valasys-orange text-white p-1 rounded">
+        <div
+          onClick={handleEditIconClick}
+          className="absolute top-1 right-1 bg-valasys-orange text-white p-1 rounded cursor-pointer hover:bg-valasys-orange/90 transition-colors"
+        >
           <Edit2 className="w-3 h-3" />
         </div>
       )}

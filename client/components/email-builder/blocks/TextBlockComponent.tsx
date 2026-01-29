@@ -7,6 +7,7 @@ interface TextBlockComponentProps {
   isSelected: boolean;
   isEditing: boolean;
   onEdit: () => void;
+  onEditingChange?: (id: string | null) => void;
   onContentChange: (content: string) => void;
 }
 
@@ -15,6 +16,7 @@ export const TextBlockComponent: React.FC<TextBlockComponentProps> = ({
   isSelected,
   isEditing,
   onEdit,
+  onEditingChange,
   onContentChange,
 }) => {
   const getWidthStyle = () => {
@@ -29,12 +31,27 @@ export const TextBlockComponent: React.FC<TextBlockComponentProps> = ({
     onEdit();
   };
 
+  const handleDoubleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isSelected && onEditingChange) {
+      onEditingChange(block.id);
+    }
+  };
+
+  const handleEditIconClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onEditingChange) {
+      onEditingChange(block.id);
+    }
+  };
+
   return (
     <div
       className={`relative transition-all cursor-pointer user-select-none ${
         isSelected ? "ring-2 ring-valasys-orange" : ""
       }`}
       onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
       style={{
         margin: `${block.margin}px`,
         display: "block",
@@ -45,8 +62,9 @@ export const TextBlockComponent: React.FC<TextBlockComponentProps> = ({
         <textarea
           value={block.content}
           onChange={(e) => onContentChange(e.target.value)}
+          onBlur={() => onEditingChange?.(null)}
           autoFocus
-          className="w-full border border-valasys-orange rounded px-2 py-1 font-serif"
+          className="w-full rounded px-2 py-1 font-serif outline-none"
           style={{
             fontSize: `${block.fontSize}px`,
             color: block.fontColor,
@@ -96,7 +114,10 @@ export const TextBlockComponent: React.FC<TextBlockComponentProps> = ({
         </p>
       )}
       {isSelected && !isEditing && (
-        <div className="absolute top-1 right-1 bg-valasys-orange text-white p-1 rounded">
+        <div
+          onClick={handleEditIconClick}
+          className="absolute top-1 right-1 bg-valasys-orange text-white p-1 rounded cursor-pointer hover:bg-valasys-orange/90 transition-colors"
+        >
           <Edit2 className="w-3 h-3" />
         </div>
       )}

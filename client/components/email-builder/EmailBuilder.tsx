@@ -57,6 +57,7 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
   });
 
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
+  const [editingBlockId, setEditingBlockId] = useState<string | null>(null);
   const [selectedFooterElement, setSelectedFooterElement] = useState<
     string | null
   >(null);
@@ -123,6 +124,7 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
         updatedAt: new Date().toISOString(),
       }));
       setSelectedBlockId(null);
+      setEditingBlockId(null);
     }
   }, [selectedBlockId]);
 
@@ -133,6 +135,7 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
       updatedAt: new Date().toISOString(),
     }));
     setSelectedBlockId(null);
+    setEditingBlockId(null);
   }, []);
 
   const handleDuplicateBlock = useCallback(
@@ -331,10 +334,12 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
                   template={template}
                   templateSubject={templateSubject}
                   selectedBlockId={selectedBlockId}
+                  editingBlockId={editingBlockId}
                   selectedFooterElement={selectedFooterElement}
                   onAddBlock={handleAddBlock}
                   onBlockUpdate={handleUpdateBlock}
                   onBlockSelect={setSelectedBlockId}
+                  onEditingBlockChange={setEditingBlockId}
                   onFooterElementSelect={setSelectedFooterElement}
                   onTemplateSubjectChange={setTemplateSubject}
                   onBackgroundColorChange={(color) =>
