@@ -60,47 +60,6 @@ export const CenteredImageCardBlockComponent: React.FC<
       }}
     >
       <div className="w-full">
-        {/* Action Toolbar */}
-        {isSelected && (
-          <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-2 shadow-sm mb-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-8 w-8 p-0 hover:bg-gray-100"
-              title="Add new block"
-              onClick={() => {
-                // This would typically open a menu to add a new block
-              }}
-            >
-              <Plus className="w-4 h-4 text-gray-700" />
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-8 w-8 p-0 hover:bg-gray-100"
-              onClick={() => {
-                onDuplicate?.(block as any, blockIndex + 1);
-              }}
-              title="Duplicate block"
-            >
-              <Copy className="w-4 h-4 text-gray-700" />
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-8 w-8 p-0 hover:bg-red-100"
-              onClick={() => {
-                onDelete?.(block.id);
-              }}
-              title="Delete block"
-            >
-              <Trash2 className="w-4 h-4 text-red-600" />
-            </Button>
-          </div>
-        )}
-
         <div className="relative group mb-6">
           {block.image ? (
             <>
