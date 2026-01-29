@@ -27,7 +27,7 @@ import {
 } from "./utils";
 
 interface BlockActionsProps {
-  blockId: string;
+  block: ContentBlock;
   blockIndex: number;
   totalBlocks: number;
   onAddBlock: (block: ContentBlock, position: number) => void;
@@ -36,7 +36,7 @@ interface BlockActionsProps {
 }
 
 export const BlockActions: React.FC<BlockActionsProps> = ({
-  blockId,
+  block,
   blockIndex,
   totalBlocks,
   onAddBlock,
@@ -175,7 +175,7 @@ export const BlockActions: React.FC<BlockActionsProps> = ({
         size="sm"
         className="h-8 w-8 p-0 hover:bg-gray-100"
         onClick={() => {
-          onDuplicate({} as ContentBlock, blockIndex + 1);
+          onDuplicate(block, blockIndex + 1);
         }}
         title="Duplicate block"
       >

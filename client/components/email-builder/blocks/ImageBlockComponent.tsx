@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { ImageBlock } from "../types";
 import { Upload } from "lucide-react";
 
@@ -15,6 +15,11 @@ export const ImageBlockComponent: React.FC<ImageBlockComponentProps> = ({
   onSrcChange,
   onDimensionChange,
 }) => {
+  const [isResizing, setIsResizing] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [startWidth, setStartWidth] = useState(block.width);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -40,15 +45,62 @@ export const ImageBlockComponent: React.FC<ImageBlockComponentProps> = ({
     }
   };
 
+  const handleResizeStart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsResizing(true);
+    setStartX(e.clientX);
+    setStartWidth(block.width);
+  };
+
+  React.useEffect(() => {
+    if (!isResizing) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const deltaX = e.clientX - startX;
+      let newWidth = Math.max(50, startWidth + deltaX); // Minimum width of 50px
+
+      // Apply constraints based on width unit
+      if (block.widthUnit === "%") {
+        newWidth = Math.min(100, newWidth); // Max 100% for percentage
+      } else {
+        newWidth = Math.min(800, newWidth); // Max 800px for pixel width
+      }
+
+      onDimensionChange(newWidth, block.height);
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isResizing, startX, startWidth, block, onDimensionChange]);
+
   return (
     <div
+      ref={containerRef}
       className={`relative p-4 transition-all ${
         isSelected ? "ring-2 ring-valasys-orange" : ""
       }`}
       style={{ textAlign: block.alignment as any }}
     >
       {block.src ? (
-        <div style={{ textAlign: block.alignment as any, overflow: "hidden" }}>
+        <div
+          style={{
+            textAlign: block.alignment as any,
+            position: "relative",
+            display: "inline-block",
+            width: block.alignment === "center" ? "auto" : "auto",
+            margin: block.alignment === "center" ? "0 auto" : "0",
+          }}
+        >
           <img
             src={block.src}
             alt={block.alt || "Image"}
@@ -59,17 +111,48 @@ export const ImageBlockComponent: React.FC<ImageBlockComponentProps> = ({
                 block.heightUnit === "%"
                   ? `${block.height}${block.heightUnit}`
                   : `${block.height}px`,
-              display: block.alignment === "center" ? "block" : "inline",
-              margin: block.alignment === "center" ? "0 auto" : "0",
+              display: "block",
               maxWidth: "100%",
               objectFit: "contain",
               boxSizing: "border-box",
+              userSelect: "none",
             }}
             onError={(e) => {
               console.error("Image failed to load:", block.src);
               (e.target as HTMLImageElement).style.border = "2px solid red";
             }}
           />
+          {/* Resize Handle */}
+          {isSelected && (
+            <div
+              onMouseDown={handleResizeStart}
+              style={{
+                position: "absolute",
+                right: "-3px",
+                top: 0,
+                height: "100%",
+                width: "12px",
+                backgroundColor: isResizing
+                  ? "#FF6B35"
+                  : "rgba(255, 107, 53, 0.4)",
+                cursor: "col-resize",
+                zIndex: 50,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.backgroundColor =
+                  "#FF6B35";
+                (e.currentTarget as HTMLDivElement).style.opacity = "1";
+              }}
+              onMouseLeave={(e) => {
+                if (!isResizing) {
+                  (e.currentTarget as HTMLDivElement).style.backgroundColor =
+                    "rgba(255, 107, 53, 0.4)";
+                  (e.currentTarget as HTMLDivElement).style.opacity = "0.7";
+                }
+              }}
+              title="Drag to resize image width"
+            />
+          )}
         </div>
       ) : (
         <label className="flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded cursor-pointer hover:bg-gray-50">

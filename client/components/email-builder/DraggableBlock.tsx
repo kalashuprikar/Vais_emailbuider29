@@ -72,8 +72,8 @@ export const DraggableBlock: React.FC<DraggableBlockProps> = ({
     <div
       ref={ref}
       className={cn(
-        "group relative transition-all cursor-move",
-        isDragging && "opacity-50 scale-95",
+        "group relative cursor-move",
+        isDragging && "opacity-50 scale-95 transition-all",
         isOver && "ring-2 ring-valasys-orange rounded-lg",
       )}
     >
@@ -100,15 +100,11 @@ export const DraggableBlock: React.FC<DraggableBlockProps> = ({
       {isSelected && (
         <div className="px-4 py-2">
           <BlockActions
-            blockId={block.id}
+            block={block}
             blockIndex={index}
             totalBlocks={totalBlocks}
-            onAddBlock={(newBlock, position) => {
-              onAddBlock(newBlock, position);
-            }}
-            onDuplicate={(_, position) => {
-              onDuplicate(block, position);
-            }}
+            onAddBlock={onAddBlock}
+            onDuplicate={onDuplicate}
             onDelete={() => onDelete(block.id)}
           />
         </div>
