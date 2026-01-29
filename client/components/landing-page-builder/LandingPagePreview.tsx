@@ -162,7 +162,7 @@ export const LandingPagePreview: React.FC<LandingPagePreviewProps> = ({
   };
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-md overflow-hidden space-y-4 p-4">
+    <div className="w-full bg-white rounded-lg shadow-md overflow-hidden flex flex-col gap-4 p-4">
       {page.blocks.map((block, index) => renderBlock(block, index))}
     </div>
   );
