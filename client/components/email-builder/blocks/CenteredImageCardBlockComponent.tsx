@@ -385,9 +385,9 @@ export const CenteredImageCardBlockComponent: React.FC<
                   onClick={() => setEditMode("title")}
                   onMouseEnter={() => setIsHoveringTitle(true)}
                   onMouseLeave={() => setIsHoveringTitle(false)}
-                  className="font-bold text-xl text-gray-900 cursor-pointer transition-all p-2 rounded"
+                  className="font-bold text-xl text-gray-900 cursor-pointer transition-all p-3 rounded"
                   style={{
-                    border: isHoveringTitle ? "2px dashed rgb(255, 106, 0)" : "2px solid transparent",
+                    border: isHoveringTitle ? "2px dashed rgb(255, 106, 0)" : "none",
                   }}
                 >
                   {block.title}
