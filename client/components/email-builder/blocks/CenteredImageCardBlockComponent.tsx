@@ -72,7 +72,19 @@ export const CenteredImageCardBlockComponent: React.FC<
     };
 
     return (
-      <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-2 shadow-sm mt-2">
+      <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-2 shadow-sm mt-2 w-fit">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-7 w-7 p-0 hover:bg-gray-100"
+          title="Add"
+          onClick={() => {
+            // Placeholder for add functionality
+          }}
+        >
+          <Plus className="w-3 h-3 text-gray-700" />
+        </Button>
+
         <Button
           variant="ghost"
           size="sm"
