@@ -157,11 +157,11 @@ const DraggableTemplateCard: React.FC<DraggableTemplateProps> = ({
           : "border border-gray-200"
       } ${isDragging ? "opacity-50" : ""}`}
     >
-      <div className="w-full h-40 overflow-hidden bg-white">
+      <div className="w-full h-40 overflow-hidden">
         <img
           src={template.preview}
           alt={template.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover bg-white"
         />
       </div>
       <div className="p-3 flex flex-col h-40 bg-white">
