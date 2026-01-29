@@ -164,7 +164,7 @@ const DraggableTemplateCard: React.FC<DraggableTemplateProps> = ({
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="p-3 flex flex-col h-40">
+      <div className="p-3 flex flex-col h-40 bg-white">
         <h3 className="text-sm font-semibold text-gray-900 mb-1">
           {template.title}
         </h3>
