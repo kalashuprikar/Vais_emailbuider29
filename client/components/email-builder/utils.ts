@@ -1141,7 +1141,7 @@ export function renderBlockToHTML(block: ContentBlock): string {
           ? `border: ${cardBlock.borderWidth}px solid ${cardBlock.borderColor};`
           : "";
       return `<div style="background-color: ${cardBlock.backgroundColor}; border-radius: ${cardBlock.borderRadius}px; ${borderStyle} padding: ${cardBlock.padding}px; margin: ${cardBlock.margin}px; max-width: 600px; margin-left: auto; margin-right: auto;">
-        <img src="${cardBlock.image}" alt="${cardBlock.imageAlt}" style="width: 100%; height: auto; display: block; border-radius: ${cardBlock.borderRadius}px ${cardBlock.borderRadius}px 0 0;" />
+        <img src="${cardBlock.image}" alt="${cardBlock.imageAlt}" style="width: 100%; height: 300px; object-fit: cover; display: block; border-radius: ${cardBlock.borderRadius}px ${cardBlock.borderRadius}px 0 0;" />
         <div style="text-align: center; padding: 20px;">
           <h2 style="margin: 0 0 12px 0; font-size: 24px; font-weight: bold; color: #000;">${cardBlock.title}</h2>
           <p style="margin: 0 0 16px 0; font-size: 14px; color: #666; line-height: 1.5;">${cardBlock.description}</p>
