@@ -404,7 +404,7 @@ export const CenteredImageCardBlockComponent: React.FC<
               ) : (
                 <p
                   onClick={() => setEditMode("description")}
-                  className="text-sm text-gray-600 cursor-pointer transition-all p-2 rounded whitespace-pre-wrap break-words hover:border-2 hover:border-dotted hover:border-gray-400"
+                  className="text-sm text-gray-600 cursor-pointer transition-all p-2 rounded whitespace-pre-wrap break-words hover:border-2 hover:border-dotted hover:border-valasys-orange"
                 >
                   {block.description}
                 </p>
