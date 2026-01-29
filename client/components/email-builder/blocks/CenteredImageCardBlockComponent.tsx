@@ -333,7 +333,7 @@ export const CenteredImageCardBlockComponent: React.FC<
               />
             </label>
           )}
-          {editMode === "image" && <SectionToolbar sectionType="image" />}
+          {(editMode === "image" || isHoveringImage) && <SectionToolbar sectionType="image" />}
         </div>
 
         <div className="space-y-4 text-center">
