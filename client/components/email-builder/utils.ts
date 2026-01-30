@@ -907,34 +907,36 @@ export function renderBlockToHTML(block: ContentBlock): string {
       const twoColBlock = block as any;
       const width = `${twoColBlock.width}${twoColBlock.widthUnit}`;
       const cardsHtml = twoColBlock.cards
-        ?.map(
-          (card: any) => {
-            let imageHtml = "";
-            const contentPadding = Math.max(12, card.padding || 16);
-            if (card.image) {
-              const imageTag = `<img src="${card.image}" alt="${card.imageAlt || ""}" style="width: 100%; height: auto; display: block; border-radius: ${card.borderRadius}px; object-fit: cover; border: none; cursor: pointer;" />`;
-              if (card.imageLink) {
-                let href = card.imageLink;
-                if (card.imageLinkType === "email") {
-                  href = `mailto:${card.imageLink}`;
-                } else {
-                  if (!href.startsWith("http")) {
-                    href = `https://${href}`;
-                  }
+        ?.map((card: any) => {
+          let imageHtml = "";
+          const contentPadding = Math.max(12, card.padding || 16);
+          if (card.image) {
+            const imageTag = `<img src="${card.image}" alt="${card.imageAlt || ""}" style="width: 100%; height: auto; display: block; border-radius: ${card.borderRadius}px; object-fit: cover; border: none; cursor: pointer;" />`;
+            if (card.imageLink) {
+              let href = card.imageLink;
+              if (card.imageLinkType === "email") {
+                href = `mailto:${card.imageLink}`;
+              } else {
+                if (!href.startsWith("http")) {
+                  href = `https://${href}`;
                 }
-                const target = card.imageLinkType === "email" ? "" : ` target="_blank" rel="noopener noreferrer"`;
-                imageHtml = `<div style="padding: 12px;">
+              }
+              const target =
+                card.imageLinkType === "email"
+                  ? ""
+                  : ` target="_blank" rel="noopener noreferrer"`;
+              imageHtml = `<div style="padding: 12px;">
                   <a href="${href}"${target} style="text-decoration: none; display: block; width: 100%;">
                     ${imageTag}
                   </a>
                 </div>`;
-              } else {
-                imageHtml = `<div style="padding: 12px;">
+            } else {
+              imageHtml = `<div style="padding: 12px;">
                   ${imageTag}
                 </div>`;
-              }
             }
-            return `<div style="width: 48%; display: inline-block; vertical-align: top; padding-right: 10px; box-sizing: border-box;">
+          }
+          return `<div style="width: 48%; display: inline-block; vertical-align: top; padding-right: 10px; box-sizing: border-box;">
               <div style="background-color: ${card.backgroundColor}; color: ${card.textColor}; border-radius: ${card.borderRadius}px; margin: ${card.margin}px; overflow: hidden; border: none;">
                 ${imageHtml}
                 <div style="padding: ${contentPadding}px; margin: 0; border: none;">
@@ -943,8 +945,7 @@ export function renderBlockToHTML(block: ContentBlock): string {
                 </div>
               </div>
             </div>`;
-          },
-        )
+        })
         .join("");
       return `<div style="width: ${width};"><div style="display: flex; gap: 20px; border: none;">${cardsHtml}</div></div>`;
     }

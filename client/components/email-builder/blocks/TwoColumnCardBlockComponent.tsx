@@ -23,7 +23,7 @@ export const TwoColumnCardBlockComponent: React.FC<
 
   const handleImageUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
-    cardId: string
+    cardId: string,
   ) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -36,7 +36,7 @@ export const TwoColumnCardBlockComponent: React.FC<
                 image: event.target?.result as string,
                 imageAlt: file.name,
               }
-            : card
+            : card,
         );
         onUpdate({ ...block, cards: updatedCards });
       };
@@ -47,8 +47,14 @@ export const TwoColumnCardBlockComponent: React.FC<
   const handleDeleteImage = (cardId: string) => {
     const updatedCards = block.cards.map((card) =>
       card.id === cardId
-        ? { ...card, image: "", imageAlt: "", imageWidth: undefined, imageHeight: undefined }
-        : card
+        ? {
+            ...card,
+            image: "",
+            imageAlt: "",
+            imageWidth: undefined,
+            imageHeight: undefined,
+          }
+        : card,
     );
     onUpdate({ ...block, cards: updatedCards });
   };
@@ -56,7 +62,7 @@ export const TwoColumnCardBlockComponent: React.FC<
   const handleResizeStart = (
     e: React.MouseEvent,
     cardId: string,
-    handle: string
+    handle: string,
   ) => {
     e.preventDefault();
     e.stopPropagation();
@@ -117,7 +123,7 @@ export const TwoColumnCardBlockComponent: React.FC<
       const updatedCards = block.cards.map((card) =>
         card.id === resizingCardId
           ? { ...card, imageWidth: newWidth, imageHeight: newHeight }
-          : card
+          : card,
       );
       onUpdate({ ...block, cards: updatedCards });
     };
@@ -135,7 +141,17 @@ export const TwoColumnCardBlockComponent: React.FC<
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isResizing, resizeHandle, startX, startY, startWidth, startHeight, block, onUpdate, resizingCardId]);
+  }, [
+    isResizing,
+    resizeHandle,
+    startX,
+    startY,
+    startWidth,
+    startHeight,
+    block,
+    onUpdate,
+    resizingCardId,
+  ]);
 
   return (
     <div
@@ -160,7 +176,12 @@ export const TwoColumnCardBlockComponent: React.FC<
             onMouseLeave={() => setHoveredCardId(null)}
           >
             {/* Image Section */}
-            <div className="relative" style={{ borderRadius: `${card.borderRadius}px ${card.borderRadius}px 0 0` }}>
+            <div
+              className="relative"
+              style={{
+                borderRadius: `${card.borderRadius}px ${card.borderRadius}px 0 0`,
+              }}
+            >
               {card.image ? (
                 <>
                   <div style={{ padding: "12px" }}>
@@ -170,26 +191,36 @@ export const TwoColumnCardBlockComponent: React.FC<
                           card.imageLinkType === "email"
                             ? `mailto:${card.imageLink}`
                             : card.imageLink.startsWith("http")
-                            ? card.imageLink
-                            : `https://${card.imageLink}`
+                              ? card.imageLink
+                              : `https://${card.imageLink}`
                         }
-                        target={card.imageLinkType === "email" ? undefined : "_blank"}
-                        rel={card.imageLinkType === "email" ? undefined : "noopener noreferrer"}
+                        target={
+                          card.imageLinkType === "email" ? undefined : "_blank"
+                        }
+                        rel={
+                          card.imageLinkType === "email"
+                            ? undefined
+                            : "noopener noreferrer"
+                        }
                         onClick={(e) => {
                           e.stopPropagation();
                         }}
                         style={{
                           textDecoration: "none",
                           display: "block",
-                          width: "100%"
+                          width: "100%",
                         }}
                       >
                         <img
                           src={card.image}
                           alt={card.imageAlt || "Card image"}
                           style={{
-                            width: card.imageWidth ? `${card.imageWidth}px` : "100%",
-                            height: card.imageHeight ? `${card.imageHeight}px` : "auto",
+                            width: card.imageWidth
+                              ? `${card.imageWidth}px`
+                              : "100%",
+                            height: card.imageHeight
+                              ? `${card.imageHeight}px`
+                              : "auto",
                             maxWidth: "100%",
                             display: "block",
                             objectFit: "cover",
@@ -203,8 +234,12 @@ export const TwoColumnCardBlockComponent: React.FC<
                         src={card.image}
                         alt={card.imageAlt || "Card image"}
                         style={{
-                          width: card.imageWidth ? `${card.imageWidth}px` : "100%",
-                          height: card.imageHeight ? `${card.imageHeight}px` : "auto",
+                          width: card.imageWidth
+                            ? `${card.imageWidth}px`
+                            : "100%",
+                          height: card.imageHeight
+                            ? `${card.imageHeight}px`
+                            : "auto",
                           maxWidth: "100%",
                           display: "block",
                           objectFit: "cover",
@@ -213,7 +248,6 @@ export const TwoColumnCardBlockComponent: React.FC<
                       />
                     )}
                   </div>
-
                 </>
               ) : (
                 <label className="flex items-center justify-center w-full h-40 bg-gray-800 cursor-pointer hover:bg-gray-700 transition-colors rounded">
@@ -232,12 +266,14 @@ export const TwoColumnCardBlockComponent: React.FC<
             </div>
 
             {/* Content Section */}
-            <div style={{
-              padding: `${Math.max(12, card.padding)}px`,
-              color: card.textColor,
-              margin: 0,
-              border: "none"
-            }}>
+            <div
+              style={{
+                padding: `${Math.max(12, card.padding)}px`,
+                color: card.textColor,
+                margin: 0,
+                border: "none",
+              }}
+            >
               <h3 className="font-bold text-base mb-2 m-0">{card.title}</h3>
               <p className="text-xs leading-snug m-0">{card.description}</p>
             </div>

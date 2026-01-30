@@ -5889,7 +5889,10 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                           if (file) {
                             const reader = new FileReader();
                             reader.onload = (event) => {
-                              handleCardUpdate("image", event.target?.result as string);
+                              handleCardUpdate(
+                                "image",
+                                event.target?.result as string,
+                              );
                               handleCardUpdate("imageAlt", file.name);
                             };
                             reader.readAsDataURL(file);
