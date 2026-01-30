@@ -387,31 +387,31 @@ export const CenteredImageCardBlockComponent: React.FC<
           {(block.title || editMode === "title") && (
             <div>
               {editMode === "title" ? (
-                <Input
-                  value={block.title}
-                  onChange={(e) => handleFieldChange("title", e.target.value)}
-                  onBlur={() => setEditMode(null)}
-                  autoFocus
-                  className="text-center font-bold text-lg focus:outline-none"
-                  style={{ border: "2px solid rgb(255, 106, 0)" }}
-                />
-              ) : (
                 <>
-                  <h3
-                    onClick={() => setEditMode("title")}
-                    onMouseEnter={() => setIsHoveringTitle(true)}
-                    onMouseLeave={() => setIsHoveringTitle(false)}
-                    className="font-bold text-xl text-gray-900 cursor-pointer transition-all p-3 rounded"
-                    style={{
-                      border: isHoveringTitle
-                        ? "1px dashed rgb(255, 106, 0)"
-                        : "none",
-                    }}
-                  >
-                    {block.title}
-                  </h3>
-                  {isHoveringTitle && <SectionToolbar sectionType="title" />}
+                  <Input
+                    value={block.title}
+                    onChange={(e) => handleFieldChange("title", e.target.value)}
+                    onBlur={() => setEditMode(null)}
+                    autoFocus
+                    className="text-center font-bold text-lg focus:outline-none"
+                    style={{ border: "2px solid rgb(255, 106, 0)" }}
+                  />
+                  <SectionToolbar sectionType="title" />
                 </>
+              ) : (
+                <h3
+                  onClick={() => setEditMode("title")}
+                  onMouseEnter={() => setIsHoveringTitle(true)}
+                  onMouseLeave={() => setIsHoveringTitle(false)}
+                  className="font-bold text-xl text-gray-900 cursor-pointer transition-all p-3 rounded"
+                  style={{
+                    border: isHoveringTitle
+                      ? "1px dashed rgb(255, 106, 0)"
+                      : "none",
+                  }}
+                >
+                  {block.title}
+                </h3>
               )}
             </div>
           )}
