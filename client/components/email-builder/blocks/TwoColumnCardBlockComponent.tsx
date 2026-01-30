@@ -169,9 +169,17 @@ export const TwoColumnCardBlockComponent: React.FC<
                         href={
                           card.imageLinkType === "email"
                             ? `mailto:${card.imageLink}`
-                            : card.imageLink
+                            : card.imageLink.startsWith("http")
+                            ? card.imageLink
+                            : `https://${card.imageLink}`
                         }
-                        style={{ textDecoration: "none" }}
+                        target={card.imageLinkType === "email" ? undefined : "_blank"}
+                        rel={card.imageLinkType === "email" ? undefined : "noopener noreferrer"}
+                        style={{
+                          textDecoration: "none",
+                          display: "block",
+                          width: "100%"
+                        }}
                       >
                         <img
                           src={card.image}
