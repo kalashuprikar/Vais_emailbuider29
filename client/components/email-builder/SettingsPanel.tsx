@@ -1494,10 +1494,18 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   }
                   className="flex-1 focus:ring-valasys-orange focus:ring-2"
                 />
-                <Button variant="outline" size="sm" className="px-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="px-2"
+                  title="Images must allow CORS requests. If using external URLs, ensure the server allows cross-origin requests. Use file upload as an alternative."
+                >
                   ⓘ
                 </Button>
               </div>
+              <p className="text-xs text-gray-500 mt-2">
+                ⚠️ External URLs may not load due to CORS restrictions. Use file upload for reliable image hosting.
+              </p>
             </div>
 
             <div>
