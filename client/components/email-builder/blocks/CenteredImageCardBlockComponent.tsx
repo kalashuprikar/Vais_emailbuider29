@@ -9,7 +9,6 @@ interface CenteredImageCardBlockComponentProps {
   block: CenteredImageCardBlock;
   isSelected: boolean;
   onBlockUpdate: (block: CenteredImageCardBlock) => void;
-  onDuplicate?: (block: CenteredImageCardBlock, position: number) => void;
   blockIndex?: number;
 }
 
@@ -19,7 +18,7 @@ const generateId = () =>
 
 export const CenteredImageCardBlockComponent: React.FC<
   CenteredImageCardBlockComponentProps
-> = ({ block, isSelected, onBlockUpdate, onDuplicate, blockIndex = 0 }) => {
+> = ({ block, isSelected, onBlockUpdate, blockIndex = 0 }) => {
   const [editMode, setEditMode] = useState<string | null>(null);
   const [isResizing, setIsResizing] = useState(false);
   const [resizeHandle, setResizeHandle] = useState<string | null>(null);
@@ -381,128 +380,116 @@ export const CenteredImageCardBlockComponent: React.FC<
                 ? "border-2 border-dotted border-gray-400"
                 : ""
           }`}
-          style={{ boxSizing: "border-box" }}
+          style={{
+            boxSizing: "border-box",
+            position: "relative",
+            width: block.image ? "100%" : "auto",
+            margin: "0 auto",
+          }}
           onMouseEnter={() => block.image && setIsHoveringImage(true)}
           onMouseLeave={() => setIsHoveringImage(false)}
         >
           {block.image ? (
             <>
-              <div
+              <img
+                src={block.image}
+                alt={block.imageAlt}
+                onClick={() => setEditMode("image")}
+                className="w-full rounded-lg cursor-pointer"
+                crossOrigin="anonymous"
                 style={{
-                  position: "relative",
-                  display: "block",
                   width: "100%",
-                  overflow: "hidden",
+                  height: "auto",
+                  display: "block",
+                  maxWidth: "100%",
                 }}
-              >
-                <img
-                  src={block.image}
-                  alt={block.imageAlt}
-                  onClick={() => setEditMode("image")}
-                  className="w-full rounded-lg cursor-pointer"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "cover",
-                    display: "block",
-                    maxWidth: "100%",
-                  }}
-                />
+                onError={(e) => {
+                  console.error("Image failed to load:", block.image);
+                  (e.target as HTMLImageElement).style.border = "2px solid red";
+                }}
+              />
 
-                {/* Overlay on hover */}
-                {isHoveringImage && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-100 transition-all rounded-lg">
-                    <div className="flex gap-3 items-center">
-                      <label className="flex items-center justify-center cursor-pointer p-2 hover:bg-black hover:bg-opacity-60 rounded transition-all">
-                        <Upload className="w-6 h-6 text-white" />
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageUpload}
-                          className="hidden"
-                        />
-                      </label>
-                      {onDuplicate && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onDuplicate(block, blockIndex + 1);
-                          }}
-                          className="flex items-center justify-center cursor-pointer p-2 hover:bg-black hover:bg-opacity-60 rounded transition-all"
-                          title="Copy block"
-                        >
-                          <Copy className="w-6 h-6 text-white" />
-                        </button>
-                      )}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onBlockUpdate({ ...block, image: "" });
-                        }}
-                        className="flex items-center justify-center cursor-pointer p-2 hover:bg-black hover:bg-opacity-60 rounded transition-all"
-                        title="Delete image"
-                      >
-                        <Trash2 className="w-6 h-6 text-white" />
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* Resize Handles - Only show when hovering (Corners only) */}
-                {isHoveringImage && (
-                  <>
-                    {/* Corner handles only */}
-                    {[
-                      {
-                        pos: "nw",
-                        cursor: "nw-resize",
-                        top: "-4px",
-                        left: "-4px",
-                      },
-                      {
-                        pos: "ne",
-                        cursor: "ne-resize",
-                        top: "-4px",
-                        right: "-4px",
-                      },
-                      {
-                        pos: "sw",
-                        cursor: "sw-resize",
-                        bottom: "-4px",
-                        left: "-4px",
-                      },
-                      {
-                        pos: "se",
-                        cursor: "se-resize",
-                        bottom: "-4px",
-                        right: "-4px",
-                      },
-                    ].map((handle) => (
-                      <div
-                        key={handle.pos}
-                        onMouseDown={(e) => handleResizeStart(e, handle.pos)}
-                        style={{
-                          position: "absolute",
-                          width: "12px",
-                          height: "12px",
-                          backgroundColor: "#FF6B35",
-                          border: "2px solid white",
-                          borderRadius: "2px",
-                          cursor: handle.cursor,
-                          zIndex: 40,
-                          ...((handle as any).top && { top: handle.top }),
-                          ...((handle as any).bottom && {
-                            bottom: handle.bottom,
-                          }),
-                          ...((handle as any).left && { left: handle.left }),
-                          ...((handle as any).right && { right: handle.right }),
-                        }}
-                        title={`Drag to resize (${handle.pos})`}
+              {/* Overlay on hover */}
+              {isHoveringImage && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-100 transition-all rounded-lg">
+                  <div className="flex gap-3 items-center">
+                    <label className="flex items-center justify-center cursor-pointer p-2 hover:bg-black hover:bg-opacity-60 rounded transition-all">
+                      <Upload className="w-6 h-6 text-white" />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        className="hidden"
                       />
-                    ))}
-                  </>
-                )}
-              </div>
+                    </label>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onBlockUpdate({ ...block, image: "" });
+                      }}
+                      className="flex items-center justify-center cursor-pointer p-2 hover:bg-black hover:bg-opacity-60 rounded transition-all"
+                      title="Delete image"
+                    >
+                      <Trash2 className="w-6 h-6 text-white" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Resize Handles - Only show when hovering (Corners only) */}
+              {isHoveringImage && (
+                <>
+                  {/* Corner handles only */}
+                  {[
+                    {
+                      pos: "nw",
+                      cursor: "nw-resize",
+                      top: "-4px",
+                      left: "-4px",
+                    },
+                    {
+                      pos: "ne",
+                      cursor: "ne-resize",
+                      top: "-4px",
+                      right: "-4px",
+                    },
+                    {
+                      pos: "sw",
+                      cursor: "sw-resize",
+                      bottom: "-4px",
+                      left: "-4px",
+                    },
+                    {
+                      pos: "se",
+                      cursor: "se-resize",
+                      bottom: "-4px",
+                      right: "-4px",
+                    },
+                  ].map((handle) => (
+                    <div
+                      key={handle.pos}
+                      onMouseDown={(e) => handleResizeStart(e, handle.pos)}
+                      style={{
+                        position: "absolute",
+                        width: "12px",
+                        height: "12px",
+                        backgroundColor: "#FF6B35",
+                        border: "2px solid white",
+                        borderRadius: "2px",
+                        cursor: handle.cursor,
+                        zIndex: 40,
+                        ...((handle as any).top && { top: handle.top }),
+                        ...((handle as any).bottom && {
+                          bottom: handle.bottom,
+                        }),
+                        ...((handle as any).left && { left: handle.left }),
+                        ...((handle as any).right && { right: handle.right }),
+                      }}
+                      title={`Drag to resize (${handle.pos})`}
+                    />
+                  ))}
+                </>
+              )}
             </>
           ) : (
             <label className="flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">

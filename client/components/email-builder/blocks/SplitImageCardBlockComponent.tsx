@@ -8,7 +8,6 @@ interface SplitImageCardBlockComponentProps {
   block: SplitImageCardBlock;
   isSelected: boolean;
   onBlockUpdate: (block: SplitImageCardBlock) => void;
-  onDuplicate?: (block: SplitImageCardBlock, position: number) => void;
   blockIndex?: number;
 }
 
@@ -18,10 +17,9 @@ const generateId = () =>
 
 export const SplitImageCardBlockComponent: React.FC<
   SplitImageCardBlockComponentProps
-> = ({ block, isSelected, onBlockUpdate, onDuplicate, blockIndex = 0 }) => {
+> = ({ block, isSelected, onBlockUpdate, blockIndex = 0 }) => {
   const [editMode, setEditMode] = useState<string | null>(null);
   const [isHoveringImage, setIsHoveringImage] = useState(false);
-  const [imageUrlInput, setImageUrlInput] = useState("");
   const [hoveredSection, setHoveredSection] = useState<string | null>(null);
 
   // Initialize sections from old format or arrays
@@ -72,23 +70,6 @@ export const SplitImageCardBlockComponent: React.FC<
       ...block,
       imagePosition: block.imagePosition === "left" ? "right" : "left",
     });
-  };
-
-  const handleImageUrlSubmit = () => {
-    const trimmedUrl = imageUrlInput.trim();
-    if (trimmedUrl) {
-      if (
-        trimmedUrl.startsWith("http://") ||
-        trimmedUrl.startsWith("https://")
-      ) {
-        onBlockUpdate({ ...block, image: trimmedUrl });
-        setImageUrlInput("");
-      } else {
-        alert("Please enter a valid URL starting with http:// or https://");
-      }
-    } else {
-      alert("Please enter an image URL");
-    }
   };
 
   const handleAddTitle = () => {
@@ -345,18 +326,6 @@ export const SplitImageCardBlockComponent: React.FC<
                           className="hidden"
                         />
                       </label>
-                      {onDuplicate && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onDuplicate(block, blockIndex + 1);
-                          }}
-                          className="flex items-center justify-center cursor-pointer p-2 hover:bg-black hover:bg-opacity-60 rounded transition-all"
-                          title="Copy block"
-                        >
-                          <Copy className="w-6 h-6 text-white" />
-                        </button>
-                      )}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -371,40 +340,18 @@ export const SplitImageCardBlockComponent: React.FC<
                   </div>
                 </div>
               ) : (
-                <div className="space-y-2">
-                  <label className="flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded cursor-pointer hover:bg-gray-50">
-                    <div className="flex flex-col items-center justify-center">
-                      <Upload className="w-6 h-6 text-gray-400 mb-2" />
-                      <p className="text-sm text-gray-500">Click to upload</p>
-                    </div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="hidden"
-                    />
-                  </label>
-                  <div className="flex gap-2">
-                    <Input
-                      type="text"
-                      placeholder="Or paste image URL..."
-                      value={imageUrlInput}
-                      onChange={(e) => setImageUrlInput(e.target.value)}
-                      onKeyPress={(e) =>
-                        e.key === "Enter" && handleImageUrlSubmit()
-                      }
-                      className="flex-1 text-xs"
-                    />
-                    <Button
-                      onClick={handleImageUrlSubmit}
-                      variant="outline"
-                      size="sm"
-                      className="text-xs"
-                    >
-                      Add
-                    </Button>
+                <label className="flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded cursor-pointer hover:bg-gray-50">
+                  <div className="flex flex-col items-center justify-center">
+                    <Upload className="w-6 h-6 text-gray-400 mb-2" />
+                    <p className="text-sm text-gray-500">Click to upload</p>
                   </div>
-                </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                </label>
               )}
             </div>
           )}
@@ -649,18 +596,6 @@ export const SplitImageCardBlockComponent: React.FC<
                           className="hidden"
                         />
                       </label>
-                      {onDuplicate && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onDuplicate(block, blockIndex + 1);
-                          }}
-                          className="flex items-center justify-center cursor-pointer p-2 hover:bg-black hover:bg-opacity-60 rounded transition-all"
-                          title="Copy block"
-                        >
-                          <Copy className="w-6 h-6 text-white" />
-                        </button>
-                      )}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -675,40 +610,18 @@ export const SplitImageCardBlockComponent: React.FC<
                   </div>
                 </div>
               ) : (
-                <div className="space-y-2">
-                  <label className="flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded cursor-pointer hover:bg-gray-50">
-                    <div className="flex flex-col items-center justify-center">
-                      <Upload className="w-6 h-6 text-gray-400 mb-2" />
-                      <p className="text-sm text-gray-500">Click to upload</p>
-                    </div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="hidden"
-                    />
-                  </label>
-                  <div className="flex gap-2">
-                    <Input
-                      type="text"
-                      placeholder="Or paste image URL..."
-                      value={imageUrlInput}
-                      onChange={(e) => setImageUrlInput(e.target.value)}
-                      onKeyPress={(e) =>
-                        e.key === "Enter" && handleImageUrlSubmit()
-                      }
-                      className="flex-1 text-xs"
-                    />
-                    <Button
-                      onClick={handleImageUrlSubmit}
-                      variant="outline"
-                      size="sm"
-                      className="text-xs"
-                    >
-                      Add
-                    </Button>
+                <label className="flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded cursor-pointer hover:bg-gray-50">
+                  <div className="flex flex-col items-center justify-center">
+                    <Upload className="w-6 h-6 text-gray-400 mb-2" />
+                    <p className="text-sm text-gray-500">Click to upload</p>
                   </div>
-                </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                </label>
               )}
             </div>
           )}
