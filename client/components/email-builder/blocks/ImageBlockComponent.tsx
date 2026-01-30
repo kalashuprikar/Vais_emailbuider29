@@ -140,7 +140,15 @@ export const ImageBlockComponent: React.FC<ImageBlockComponentProps> = ({
 
           {/* Hover Toolbar */}
           {isHovering && (
-            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2 items-center bg-white border border-gray-300 rounded-lg p-2 shadow-lg z-20">
+            <div
+              className="absolute top-0 right-0 flex gap-2 items-center bg-white border border-gray-300 rounded-lg p-2 shadow-lg z-50"
+              style={{
+                transform: "translateY(-100%)",
+                marginTop: "-8px"
+              }}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
               {onDuplicate && (
                 <button
                   onClick={(e) => {
