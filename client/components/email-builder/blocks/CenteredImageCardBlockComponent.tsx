@@ -398,8 +398,8 @@ export const CenteredImageCardBlockComponent: React.FC<
                 className="rounded-lg cursor-pointer"
                 crossOrigin="anonymous"
                 style={{
-                  width: `${block.width || 300}px`,
-                  height: `${block.height || 200}px`,
+                  width: block.width ? `${block.width}px` : "auto",
+                  height: block.height ? `${block.height}px` : "auto",
                   display: "block",
                   maxWidth: "100%",
                   objectFit: "cover",
