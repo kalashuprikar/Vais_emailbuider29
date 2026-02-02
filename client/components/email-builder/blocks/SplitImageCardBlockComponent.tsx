@@ -16,6 +16,37 @@ interface SplitImageCardBlockComponentProps {
 const generateId = () =>
   `section-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
+// Helper function to copy text to clipboard with HTML support and fallbacks
+const copyToClipboard = async (
+  text: string,
+  htmlContent?: string,
+): Promise<boolean> => {
+  try {
+    // Try ClipboardItem with HTML if available
+    if (htmlContent && typeof ClipboardItem !== "undefined") {
+      try {
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            "text/html": new Blob([htmlContent], { type: "text/html" }),
+            "text/plain": new Blob([text], { type: "text/plain" }),
+          }),
+        ]);
+        return true;
+      } catch (htmlError) {
+        console.warn("HTML clipboard copy failed, trying text-only:", htmlError);
+        // Fall through to text-only
+      }
+    }
+
+    // Fallback to text-only
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (error) {
+    console.error("Clipboard copy failed:", error);
+    return false;
+  }
+};
+
 export const SplitImageCardBlockComponent: React.FC<
   SplitImageCardBlockComponentProps
 > = ({ block, isSelected, onBlockUpdate, blockIndex = 0 }) => {
