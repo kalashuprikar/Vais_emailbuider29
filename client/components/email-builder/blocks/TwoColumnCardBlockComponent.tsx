@@ -20,6 +20,8 @@ export const TwoColumnCardBlockComponent: React.FC<
   const [startY, setStartY] = useState(0);
   const [startWidth, setStartWidth] = useState(0);
   const [startHeight, setStartHeight] = useState(0);
+  const [editingField, setEditingField] = useState<string | null>(null);
+  const [editingValue, setEditingValue] = useState("");
 
   const handleImageUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
