@@ -278,9 +278,7 @@ export const TwoColumnCardBlockComponent: React.FC<
                 padding: `${Math.max(12, card.padding)}px`,
                 color: card.textColor,
                 margin: 0,
-                border: hoveredCardId === card.id && editingField === null ? "2px dotted currentColor" : "2px solid transparent",
-                borderRadius: "4px",
-                transition: "border 0.2s",
+                border: "none",
               }}
             >
               {editingField === `${card.id}-title` ? (
