@@ -157,7 +157,24 @@ export const CenteredImageCardBlockComponent: React.FC<
   ]);
 
   const handleCopyText = (text: string) => {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        toast({
+          title: "Copied!",
+          description: "Text copied to clipboard",
+          duration: 2000,
+        });
+      })
+      .catch((err) => {
+        console.error("Copy failed:", err);
+        toast({
+          title: "Copy Failed",
+          description: "Could not copy to clipboard",
+          variant: "destructive",
+          duration: 2000,
+        });
+      });
   };
 
   const handleAddTitle = () => {
