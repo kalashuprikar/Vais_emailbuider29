@@ -188,21 +188,7 @@ export const CenteredImageCardBlockComponent: React.FC<
   ]);
 
   const handleCopyText = async (text: string) => {
-    const success = await copyToClipboard(text);
-    if (success) {
-      toast({
-        title: "Copied!",
-        description: "Text copied to clipboard",
-        duration: 2000,
-      });
-    } else {
-      toast({
-        title: "Copy Failed",
-        description: "Could not copy to clipboard",
-        variant: "destructive",
-        duration: 2000,
-      });
-    }
+    await copyToClipboard(text);
   };
 
   const handleAddTitle = () => {
