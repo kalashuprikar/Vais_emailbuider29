@@ -327,7 +327,7 @@ export const TwoColumnCardBlockComponent: React.FC<
                 />
               ) : (
                 <p
-                  className="text-xs leading-snug m-0 cursor-pointer hover:opacity-70"
+                  className="text-xs leading-snug m-0 cursor-pointer hover:opacity-70 hover:border-b-2 hover:border-dotted hover:border-current transition-all"
                   onDoubleClick={() =>
                     handleStartEditingField(card.id, "description")
                   }
