@@ -937,7 +937,7 @@ export function renderBlockToHTML(block: ContentBlock): string {
             }
           }
           return `<div style="width: 48%; display: inline-block; vertical-align: top; padding-right: 10px; box-sizing: border-box;">
-              <div style="background-color: ${card.backgroundColor}; color: ${card.textColor}; border-radius: ${card.borderRadius}px; margin: ${card.margin}px; overflow: hidden; border: none; display: flex; flex-direction: column; min-height: 400px;">
+              <div style="background-color: ${card.backgroundColor}; color: ${card.textColor}; border-radius: ${card.borderRadius}px; margin: ${card.margin}px; overflow: hidden; border: none; display: flex; flex-direction: column; height: 400px;">
                 <div style="height: 160px; overflow: hidden; flex-shrink: 0;">
                   ${imageHtml}
                 </div>
