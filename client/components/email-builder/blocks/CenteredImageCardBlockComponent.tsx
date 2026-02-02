@@ -741,9 +741,9 @@ export const CenteredImageCardBlockComponent: React.FC<
           )}
 
           {/* Buttons Section */}
-          {buttons.length > 0 && (
+          {buttons.filter(b => b.text).length > 0 && (
             <div className="space-y-2 pt-2">
-              {buttons.map((btn) => (
+              {buttons.filter(b => b.text).map((btn) => (
                 <div key={btn.id}>
                   {editMode === `button-text-${btn.id}` ? (
                     <>
