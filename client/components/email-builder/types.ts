@@ -423,8 +423,6 @@ export interface TwoColumnCardBlock {
     imageLinkType?: "url" | "page" | "email";
     title: string;
     description: string;
-    titles?: Array<{ id: string; content: string }>;
-    descriptions?: Array<{ id: string; content: string }>;
     backgroundColor: string;
     textColor: string;
     borderRadius: number;
