@@ -38,9 +38,15 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
     {
       id: "welcome",
       role: "assistant",
-      content: "Hi! I'm your Email AI Assistant. I can help you build beautiful newsletters. Just tell me what you need, for example: 'Create a welcome email for a tech newsletter' or 'Add a product section about new sneakers'.",
+      content: "Hi! I'm your Email AI Assistant. I can help you build beautiful newsletters in seconds. Try one of these quick builds:",
     },
   ]);
+
+  const quickBuilds = [
+    "Build a monthly newsletter",
+    "Build a welcome email",
+    "Build a product promo",
+  ];
   const [input, setInput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -74,17 +80,18 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
     }) as ContentBlock[];
   };
 
-  const handleSend = async () => {
-    if (!input.trim() || isGenerating) return;
+  const handleSend = async (overrideInput?: string) => {
+    const textToSend = overrideInput || input;
+    if (!textToSend.trim() || isGenerating) return;
 
     const userMessage: Message = {
       id: generateId(),
       role: "user",
-      content: input,
+      content: textToSend,
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+    if (!overrideInput) setInput("");
     setIsGenerating(true);
 
     try {
@@ -93,7 +100,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: input }),
+        body: JSON.stringify({ prompt: textToSend }),
       });
 
       if (!response.ok) {
@@ -111,6 +118,12 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
       };
 
       setMessages((prev) => [...prev, aiMessage]);
+
+      // Auto-apply if it's a "build" command and template is currently empty
+      const isBuildCommand = input.toLowerCase().includes("build") || input.toLowerCase().includes("newsletter");
+      if (isBuildCommand && currentTemplate.blocks.length === 0 && blocks.length > 0) {
+        handleApplyAll(blocks);
+      }
     } catch (error) {
       console.error("AI Generation Error:", error);
       const errorMessage: Message = {
@@ -167,6 +180,23 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
                   )}
                 >
                   {message.content}
+                  {message.id === "welcome" && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {quickBuilds.map((build) => (
+                        <Button
+                          key={build}
+                          variant="outline"
+                          size="sm"
+                          className="text-[10px] h-7 bg-white hover:bg-purple-50 hover:text-purple-700 border-purple-100"
+                          onClick={() => {
+                            handleSend(build);
+                          }}
+                        >
+                          {build}
+                        </Button>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 {message.role === "user" && (
                   <Avatar className="h-8 w-8 mt-1 border border-gray-200">
