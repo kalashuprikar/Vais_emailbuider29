@@ -176,9 +176,12 @@ export const BlockActions: React.FC<BlockActionsProps> = ({
         variant="ghost"
         size="sm"
         className="h-8 w-8 p-0 hover:bg-gray-100"
-        onMouseDown={(e) => e.stopPropagation()}
-        onPointerDown={(e) => e.stopPropagation()}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
         onClick={(e) => {
+          e.preventDefault();
           e.stopPropagation();
           onDuplicate(block, blockIndex + 1);
         }}
@@ -192,9 +195,12 @@ export const BlockActions: React.FC<BlockActionsProps> = ({
         variant="ghost"
         size="sm"
         className="h-8 w-8 p-0 hover:bg-red-100"
-        onMouseDown={(e) => e.stopPropagation()}
-        onPointerDown={(e) => e.stopPropagation()}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
         onClick={(e) => {
+          e.preventDefault();
           e.stopPropagation();
           onDelete();
         }}

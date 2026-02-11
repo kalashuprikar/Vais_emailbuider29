@@ -77,6 +77,19 @@ export const DraggableBlock: React.FC<DraggableBlockProps> = ({
         isOver && "ring-2 ring-valasys-orange rounded-lg",
       )}
     >
+      {isSelected && (
+        <div className="relative z-50 px-4 py-2 bg-gray-50 border-b border-gray-200">
+          <BlockActions
+            block={block}
+            blockIndex={index}
+            totalBlocks={totalBlocks}
+            onAddBlock={onAddBlock}
+            onDuplicate={onDuplicate}
+            onDelete={() => onDelete(block.id)}
+          />
+        </div>
+      )}
+
       <BlockRenderer
         block={block}
         isSelected={isSelected}
@@ -91,19 +104,6 @@ export const DraggableBlock: React.FC<DraggableBlockProps> = ({
         onDelete={onDelete}
         blockIndex={index}
       />
-
-      {isSelected && (
-        <div className="relative z-50 px-4 py-3 bg-gray-50 border-t border-gray-200">
-          <BlockActions
-            block={block}
-            blockIndex={index}
-            totalBlocks={totalBlocks}
-            onAddBlock={onAddBlock}
-            onDuplicate={onDuplicate}
-            onDelete={() => onDelete(block.id)}
-          />
-        </div>
-      )}
     </div>
   );
 };
