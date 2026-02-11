@@ -605,28 +605,28 @@ export const TwoColumnCardBlockComponent: React.FC<
         })}
       </div>
     </div>
-    {isSelected && (
-      <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg p-2 shadow-sm mt-2 w-fit">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-7 w-7 p-0 hover:bg-gray-100"
-          title="Duplicate this block"
-          onClick={handleBlockDuplicate}
-        >
-          <Copy className="w-3 h-3 text-gray-700" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-7 w-7 p-0 hover:bg-red-100"
-          title="Delete this block"
-          onClick={handleBlockDelete}
-        >
-          <Trash2 className="w-3 h-3 text-red-600" />
-        </Button>
-      </div>
-    )}
+      {isSelected && (
+        <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg p-2 shadow-sm mt-2 w-fit">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-7 w-7 p-0 hover:bg-gray-100"
+            title="Duplicate this block"
+            onClick={handleBlockDuplicate}
+          >
+            <Copy className="w-3 h-3 text-gray-700" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-7 w-7 p-0 hover:bg-red-100"
+            title="Delete this block"
+            onClick={handleBlockDelete}
+          >
+            <Trash2 className="w-3 h-3 text-red-600" />
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
