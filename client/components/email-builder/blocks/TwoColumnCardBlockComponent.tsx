@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import { TwoColumnCardBlock } from "../types";
-import { Upload, Trash2, Plus } from "lucide-react";
+import { Upload, Trash2, Plus, Copy } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
